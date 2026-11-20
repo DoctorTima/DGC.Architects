@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from './vendor/three.module.js';
 import {constructionState,comparisonState,stageAt} from './reconstruction-stages.js';
 
 // One GPU context and one set of model buffers. Comparison frames are copied

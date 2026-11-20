@@ -321,7 +321,8 @@ async function viewer() {
   const el = $('#story'); if (!el) return;
   const io = new IntersectionObserver(async es => {
     if (!es[0].isIntersecting) return; io.disconnect();
-    try { const m = await import('./viewer/story.js'); m.init(); await viewer(); } catch (e) { console.warn(e); }
+    try { const m = await import('./viewer/story.js'); m.init(); await viewer(); }
+    catch (e) { console.warn(e); const st = $('#story-load'); if (st) st.textContent = 'Модель не загрузилась в этом браузере: ' + (e && e.message || e); }
   }, {rootMargin: '2500px 0px'});
   io.observe(el);
 })();

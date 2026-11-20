@@ -197,6 +197,6 @@ async function load() {
     V.loadGroup('life').then(() => C.kick()).then(() => V.loadGroup('details')).then(() => C.kick()).catch(() => {});
   } catch (e) {
     console.warn('story model unavailable', e);
-    st.textContent = e.message === 'no-webgl' ? 'Браузер не поддерживает WebGL: показаны рендеры модели.' : 'Модель не загрузилась: показаны рендеры модели.';
+    st.textContent = e.message === 'no-webgl' ? 'Браузер не поддерживает WebGL: показаны рендеры модели.' : 'Модель не загрузилась (' + (e && e.message || e) + '): показаны рендеры модели.';
   }
 }

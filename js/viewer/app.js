@@ -3,7 +3,7 @@
 // this file adapts loading (on demand, two phases), the journal UI and mobile behaviour.
 import {SectionCaps} from './section-caps.js';
 import {meshVisible, clippingFor, LEVELS, ROOF_LEVEL, TECH_LEVEL} from './model-visibility.js';
-import * as THREE from 'three';
+import * as THREE from './vendor/three.module.js';
 import {RoomEnvironment} from './vendor/RoomEnvironment.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {GLTFLoader} from './vendor/GLTFLoader.js';

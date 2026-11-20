@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from './vendor/three.module.js';
 
 // True polygonal cross sections, including holes. The tiny inward probe avoids
 // ambiguous intersections at a shelf, slab or the former low/high wall seam.
