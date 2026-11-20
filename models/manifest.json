@@ -1,0 +1,185 @@
+{
+ "version": 10,
+ "source": "REC v10 web build, rec-kondratyuka-study (REC_Model_Manifest.json, 2026-11-10)",
+ "totalBytes": 48317308,
+ "deferred": [
+  "exterior-details"
+ ],
+ "files": {
+  "apartment-fitout": {
+   "file": "apartment-fitout_v9.glb",
+   "bytes": 352852,
+   "chunks": [
+    "apartment-fitout_v9.0.txt"
+   ],
+   "sha256": "a6160d8fa2b13b6e79bb5c93f326ba81de1fb7df0a7017444cfddbe3e95e9c6e",
+   "encoded": 470472
+  },
+  "before": {
+   "file": "before_v9.glb",
+   "bytes": 2740524,
+   "chunks": [
+    "before_v9.0.txt"
+   ],
+   "sha256": "239fd202893f6e77674b80ca6eab0c4580e62c809e524e68c8dde37df3416950",
+   "encoded": 3654032
+  },
+  "common": {
+   "file": "common_v9.glb",
+   "bytes": 514088,
+   "chunks": [
+    "common_v9.0.txt"
+   ],
+   "sha256": "8cc3311b73c7ca23c44ffdde0ed2fd81b09806965ff9da3ac6c2d07aee977c6b",
+   "encoded": 685452
+  },
+  "courtyard": {
+   "file": "courtyard_v9.glb",
+   "bytes": 4031924,
+   "chunks": [
+    "courtyard_v9.0.txt"
+   ],
+   "sha256": "b201e65be88b3821a2bd66edfa1c21213b9eec283afa186030da46c7defe9f7a",
+   "encoded": 5375900
+  },
+  "doors": {
+   "file": "doors_v9.glb",
+   "bytes": 673316,
+   "chunks": [
+    "doors_v9.0.txt"
+   ],
+   "sha256": "71b2933c4989fb60994a7a0b0d9c6bd1c751132a770b51865eae84dd61784450",
+   "encoded": 897756
+  },
+  "entries": {
+   "file": "entries_v9.glb",
+   "bytes": 767548,
+   "chunks": [
+    "entries_v9.0.txt"
+   ],
+   "sha256": "f6b8807abbab12dfcd7c26c0d04a96329bc34567019b8144acd739fad081497e",
+   "encoded": 1023400
+  },
+  "exterior-details": {
+   "file": "exterior-details_v10.glb",
+   "bytes": 19119000,
+   "chunks": [
+    "exterior-details_v10.0.txt",
+    "exterior-details_v10.1.txt",
+    "exterior-details_v10.2.txt"
+   ],
+   "sha256": "7f678ffc0b844fadd785f14e04b7eebc535933bea140ef1c59cb3493d0d9a71b",
+   "encoded": 25492000
+  },
+  "exterior": {
+   "file": "exterior_v10.glb",
+   "bytes": 9168244,
+   "chunks": [
+    "exterior_v10.0.txt",
+    "exterior_v10.1.txt"
+   ],
+   "sha256": "aabba84c8cbae646af4759a0eeaa612565f48970c3f37891cabf43fcda960653",
+   "encoded": 12224328
+  },
+  "glassblocks": {
+   "file": "glassblocks_v9.glb",
+   "bytes": 261828,
+   "chunks": [
+    "glassblocks_v9.0.txt"
+   ],
+   "sha256": "18a7cdcd9c6f0b0c034dfd8f91a16622df15c0d002e3b459adb069556b8488db",
+   "encoded": 349104
+  },
+  "interiors": {
+   "file": "interiors_v9.glb",
+   "bytes": 6319836,
+   "chunks": [
+    "interiors_v9.0.txt"
+   ],
+   "sha256": "4334fac292a93f31b9a61c5afeaf9041d3a32980b21c107a6830e15a8cb1a7b1",
+   "encoded": 8426448
+  },
+  "lifts": {
+   "file": "lifts_v9.glb",
+   "bytes": 181420,
+   "chunks": [
+    "lifts_v9.0.txt"
+   ],
+   "sha256": "3bec7d79299a730cdb64bf7a45914ce40e5c08d3c0f812bce50273c212b3a530",
+   "encoded": 241896
+  },
+  "portal-details": {
+   "file": "portal-details_v10.glb",
+   "bytes": 1405284,
+   "chunks": [
+    "portal-details_v10.0.txt"
+   ],
+   "sha256": "c88350a491da3631c0eea3caaf1e8a63e2e64bdc92326fd224cce8ab26bf531d",
+   "encoded": 1873712
+  },
+  "rear-base": {
+   "file": "rear-base_v10.glb",
+   "bytes": 54328,
+   "chunks": [
+    "rear-base_v10.0.txt"
+   ],
+   "sha256": "630335db6205a8e3f40837ce36986c5ed1d18e9a83c20c05fc695c5b00eef21a",
+   "encoded": 72440
+  },
+  "retained-shell": {
+   "file": "retained-shell_v10.glb",
+   "bytes": 57496,
+   "chunks": [
+    "retained-shell_v10.0.txt"
+   ],
+   "sha256": "7701e5bf512137023a3b6599587b774663cd7804d018aa94d0525b4b4cb07246",
+   "encoded": 76664
+  },
+  "rooftop": {
+   "file": "rooftop_v9.glb",
+   "bytes": 259660,
+   "chunks": [
+    "rooftop_v9.0.txt"
+   ],
+   "sha256": "f37268bb2a1f00af970ef36bdd32e0c660c59e1cf53372a8ee1158563169d50d",
+   "encoded": 346216
+  },
+  "structure": {
+   "file": "structure_v9.glb",
+   "bytes": 452440,
+   "chunks": [
+    "structure_v9.0.txt"
+   ],
+   "sha256": "0e43b8a227212e292f144e724683715e2e64074c274b6efc34b6f53063e7bdc5",
+   "encoded": 603256
+  },
+  "technical": {
+   "file": "technical_v9.glb",
+   "bytes": 57304,
+   "chunks": [
+    "technical_v9.0.txt"
+   ],
+   "sha256": "bae800b3d77a32c806bfe36439271ed1a1a4e7ee94b3d3f9fae040869bd775e2",
+   "encoded": 76408
+  },
+  "transition-before": {
+   "file": "transition-before_v10.glb",
+   "bytes": 1700932,
+   "chunks": [
+    "transition-before_v10.0.txt"
+   ],
+   "sha256": "a9627edc035f0fb1643333fc5105a5b4be4257e31e6ec447e7b1745640de9168",
+   "encoded": 2267912
+  },
+  "bearing-walls": {
+   "file": "bearing-walls_v11.glb",
+   "bytes": 199284,
+   "chunks": [
+    "bearing-walls_v11.0.txt"
+   ],
+   "sha256": "5545ae6847eef2a19ad8f6a2d59c7ce0ed87cbb6655f45d323daf6db756b1413",
+   "encoded": 265712
+  }
+ },
+ "encoding": "base64 text chunks; decoded in the browser to the original GLB bytes (hosting does not serve .glb)"
+}

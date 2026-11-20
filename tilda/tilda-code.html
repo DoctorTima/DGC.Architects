@@ -1,0 +1,25 @@
+<!-- REC. Вторая жизнь пятиэтажки: журнал DGC.Architects во весь экран.
+     Вставить в блок T123 «HTML-код» на отдельной странице Тильды.
+     Замените адрес в src на адрес вашего сайта на GitHub Pages (см. README). -->
+<style>
+  /* журнал занимает весь экран; страница Тильды под ним не прокручивается */
+  html, body { overflow: hidden !important; height: 100%; overscroll-behavior: none; touch-action: pan-y; }
+  .rec-journal-frame { position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; border: 0; margin: 0; padding: 0; z-index: 2147483000; background: #EFEEEA; display: block; }
+</style>
+<iframe class="rec-journal-frame" id="rec-journal-frame"
+        src="https://doctortima.github.io/DGC.Architects/"
+        title="REC. Вторая жизнь пятиэтажки | Журнал DGC.Architects"
+        allow="fullscreen" allowfullscreen loading="eager"></iframe>
+<script>
+(function () {
+  var f = document.getElementById('rec-journal-frame');
+  // ссылка вида tilda-страница#history откроет журнал сразу на нужной главе
+  if (location.hash) f.src = f.src.split('#')[0] + location.hash;
+  // запрет приближения страницы Тильды (iOS игнорирует user-scalable=no)
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (t) {
+    document.addEventListener(t, function (e) { e.preventDefault(); }, {passive: false});
+  });
+  var m = document.querySelector('meta[name="viewport"]');
+  if (m) m.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
+})();
+</script>

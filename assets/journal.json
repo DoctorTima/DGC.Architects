@@ -1,0 +1,178 @@
+{
+ "journal": {
+  "title": "Журнал DGC.Architects",
+  "description": "Исследования и проекты бюро DGC.Architects в формате интерактивных архитектурных историй: реконструкция, жильё, город, практика бюро.",
+  "rubrics": [
+   {
+    "id": "reconstruction",
+    "label": "Реконструкция"
+   },
+   {
+    "id": "housing",
+    "label": "Жильё"
+   },
+   {
+    "id": "city",
+    "label": "Город"
+   },
+   {
+    "id": "practice",
+    "label": "Практика бюро"
+   }
+  ]
+ },
+ "articles": [
+  {
+   "id": "rec",
+   "slug": "rec-vtoraya-zhizn-pyatietazhki",
+   "path": "/journal/rec-vtoraya-zhizn-pyatietazhki",
+   "title": "REC. Вторая жизнь пятиэтажки",
+   "titleMark": "REC",
+   "titleRest": "Вторая жизнь пятиэтажки",
+   "subtitle": "Что можно добавить дому, сохранив его основу",
+   "summary": "Учебная концепция реконструкции крупноблочного дома серии 1-510 на улице Кондратюка, 10, в Москве: обстройка, лифт до крыши, новые входы, общая терраса и двор. Историю можно прочитать целиком или рассмотреть дом по этажам и разрезам.",
+   "cover": {
+    "src": "assets/img/rec-photo.webp",
+    "small": "assets/img/rec-photo-900.webp",
+    "width": 1448,
+    "height": 874,
+    "alt": "Авторская визуализация проекта REC: главный фасад с тремя вынесенными лифтовыми порталами, остеклёнными этажами и входной зоной"
+   },
+   "theme": {
+    "id": "rec",
+    "paper": "#FAFAF8",
+    "surface": "#FFFFFF",
+    "ink": "#272723",
+    "accent": "#8C2D3E",
+    "rule": "#DADAD5"
+   },
+   "author": {
+    "name": "Тимофей Мельниченко",
+    "org": "DGC.Architects"
+   },
+   "datePublished": "2026-11-11",
+   "dateNote": "Дата публикации прототипа; окончательную дату задаёт автор.",
+   "rubric": "reconstruction",
+   "tags": [
+    "реконструкция",
+    "пятиэтажки",
+    "серия 1-510",
+    "обстройка",
+    "Москва"
+   ],
+   "status": "Учебная концепция реконструкции. Не является утверждённым строительством или рабочей документацией.",
+   "sections": [
+    {
+     "id": "intro",
+     "number": "00",
+     "title": "Вступление"
+    },
+    {
+     "id": "history",
+     "number": "01",
+     "title": "Сначала это было решением"
+    },
+    {
+     "id": "demolition",
+     "number": "02",
+     "title": "Почему возник вопрос о сносе"
+    },
+    {
+     "id": "scenarios",
+     "number": "03",
+     "title": "У дома может быть несколько сценариев"
+    },
+    {
+     "id": "cases",
+     "number": "04",
+     "title": "Три примера: Бордо, Амстердам, Лайнефельде"
+    },
+    {
+     "id": "transform",
+     "number": "05",
+     "title": "Наш ход: сохранить основу, добавить возможности"
+    },
+    {
+     "id": "explore",
+     "number": "06",
+     "title": "Как устроен REC"
+    },
+    {
+     "id": "plans",
+     "number": "07",
+     "title": "Квартира и первый этаж"
+    },
+    {
+     "id": "route",
+     "number": "08",
+     "title": "От входа до крыши"
+    },
+    {
+     "id": "yard",
+     "number": "09",
+     "title": "Двор"
+    },
+    {
+     "id": "position",
+     "number": "10",
+     "title": "Позиция автора и источники"
+    }
+   ],
+   "sources": [
+    {
+     "id": "S1",
+     "title": "Постановление ЦК КПСС и Совета Министров СССР от 4 ноября 1955 года «Об устранении излишеств в проектировании и строительстве». Библиографическая запись.",
+     "publisher": "Электронная библиотека исторических документов",
+     "url": "https://docs.historyrussia.org/ru/nodes/257933"
+    },
+    {
+     "id": "S2",
+     "title": "Постановление ЦК КПСС и Совета Министров СССР от 31 июля 1957 года № 931 «О развитии жилищного строительства в СССР». Библиографическая запись.",
+     "publisher": "Электронная библиотека исторических документов",
+     "url": "https://docs.historyrussia.org/ru/nodes/409070"
+    },
+    {
+     "id": "S3",
+     "title": "Программа реновации жилищного фонда в городе Москве: исторический раздел",
+     "publisher": "Правительство Москвы",
+     "url": "https://www.mos.ru/programmarenovacii.pdf"
+    },
+    {
+     "id": "S4",
+     "title": "Подтверждение утверждения программы реновации в августе 2017 года",
+     "publisher": "Официальный портал КРТ Москвы",
+     "url": "https://krt.mos.ru/news/opredeleny-podryadchiki-stroitelnykh-rabot-v-ramkakh-realizatsii-proektov-krt-v-trekh-okrugakh-moskv/"
+    },
+    {
+     "id": "S5",
+     "title": "Transformation of 530 dwellings, Grand Parc, Bordeaux",
+     "publisher": "Lacaton & Vassal",
+     "url": "https://www.lacatonvassal.com/index.php?idp=80",
+     "note": "В карточке проекта указаны 2017 год в заголовке и завершение в 2016 году в тексте; в статье используется диапазон 2016-2017."
+    },
+    {
+     "id": "S6",
+     "title": "DeFlat Kleiburg, Amsterdam",
+     "publisher": "XVW architectuur",
+     "url": "https://www.xvwarchitectuur.nl/kleiburg/",
+     "note": "Число квартир на странице округлено по-разному, поэтому в статье оно не приводится."
+    },
+    {
+     "id": "S7",
+     "title": "Stadtvillen, Leinefelde: публикация о проекте на сайте бюро",
+     "publisher": "Stefan Forster Architekten",
+     "url": "https://www.sfa.de/site/assets/files/2640/bkf12_stadtvillen-1.pdf",
+     "note": "При проверке был доступен индексированный фрагмент; прямое открытие PDF вернуло ошибку 403. В статье используется только общий принцип проекта."
+    },
+    {
+     "id": "S8",
+     "title": "Авторские материалы REC: подрамник, конструктивный альбом курсового проекта (листы АР1-АР8, НИУ МГСУ, 2026), модели REC v10",
+     "publisher": "Т. Мельниченко / DGC.Architects",
+     "url": ""
+    }
+   ],
+   "related": [],
+   "readingWords": 2686
+  }
+ ]
+}
