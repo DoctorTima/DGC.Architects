@@ -1,0 +1,22 @@
+<!-- Wabi-Sabi. Кухня и прихожая: страница для заказчицы во весь экран.
+     Блок T123 «HTML-код» на странице Тильды «Wabi-Sabi» в проекте DGC.Architects. -->
+<style>
+  html, body { overflow: hidden !important; height: 100%; overscroll-behavior: none; touch-action: pan-y; }
+  .wabi-frame { position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; border: 0; margin: 0; padding: 0; z-index: 2147483000; background: #EFEEEA; display: block; }
+</style>
+<iframe class="wabi-frame" id="wabi-frame"
+        src="https://doctortima.github.io/DGC.Architects/wabi-sabi/"
+        title="Wabi-Sabi. Кухня и прихожая | DGC Architects"
+        allow="fullscreen" allowfullscreen loading="eager"></iframe>
+<script>
+(function () {
+  var f = document.getElementById('wabi-frame');
+  // ссылка вида tilda-страница#hall откроет сразу нужный раздел
+  if (location.hash) f.src = f.src.split('#')[0] + location.hash;
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (t) {
+    document.addEventListener(t, function (e) { e.preventDefault(); }, {passive: false});
+  });
+  var m = document.querySelector('meta[name="viewport"]');
+  if (m) m.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
+})();
+</script>

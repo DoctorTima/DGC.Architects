@@ -51,6 +51,10 @@ export function createViewer(root, cfg) {
   controls.maxDistance = 22;
   controls.screenSpacePanning = true;
   controls.zoomToCursor = false;
+  // колесо над моделью не перехватывает прокрутку страницы, пока по модели не щёлкнули
+  controls.enableZoom = false;
+  renderer.domElement.addEventListener('pointerdown', () => { controls.enableZoom = true; });
+  renderer.domElement.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') controls.enableZoom = false; });
 
   const state = { ceiling: false, layers: { socket: true, switch: true, light: true }, walls: {}, ceilNode: null, raf: 0, anim: null, ready: false };
 
@@ -120,9 +124,11 @@ export function createViewer(root, cfg) {
   }
   function placePins(hidden) {
     const half = { x: W / 2, y: H / 2 };
+    // потолок на месте и камера над ним — комната закрыта, метки внутри не видны
+    const closed = state.ceiling && camera.position.y > CEIL;
     for (const q of pins) {
       const m = q.m;
-      let show = state.layers[m.type] && !(m.wall && hidden[m.wall]);
+      let show = !closed && state.layers[m.type] && !(m.wall && hidden[m.wall]);
       if (show) {
         v.copy(q.p).project(camera);
         if (v.z > 1 || v.z < -1) show = false;
