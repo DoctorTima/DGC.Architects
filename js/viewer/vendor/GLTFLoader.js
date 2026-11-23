@@ -2579,7 +2579,10 @@ class GLTFParser {
 
 			const userAgent = navigator.userAgent;
 
-			isSafari = /^((?!chrome|android).)*safari/i.test( userAgent ) === true;
+			// DGC: in-app browsers on iOS (Instagram, Telegram, Facebook...) are WebKit without the "Safari" word;
+			// their createImageBitmap is broken before iOS 17, so they must take the Safari path too.
+			isSafari = /^((?!chrome|android).)*safari/i.test( userAgent ) === true || /iPhone|iPad|iPod/.test( userAgent ) ||
+				( /Macintosh/.test( userAgent ) && navigator.maxTouchPoints > 1 ) || ( /AppleWebKit/.test( userAgent ) && ! /Chrome|Chromium|Android|Edg/.test( userAgent ) );
 			const safariMatch = userAgent.match( /Version\/(\d+)/ );
 			safariVersion = isSafari && safariMatch ? parseInt( safariMatch[ 1 ], 10 ) : - 1;
 

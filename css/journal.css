@@ -1,3 +1,4 @@
+/* compat: vh and inset fallbacks */
 /* DGC.Architects journal, REC issue.
    Language of a drawing sheet: light concrete paper, ink lines, mono annotations,
    large light headings, the model as the main image. Colour only in small accents.
@@ -68,7 +69,7 @@ button { cursor: pointer; }
 .chapter-now-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--f-sans); font-size: 14px; }
 .chev { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); flex: none; transition: transform var(--t-ui); }
 .chapter-now[aria-expanded="true"] .chev { transform: rotate(225deg); }
-.toc-panel { border-top: 1px solid var(--rule); background: var(--surface); max-height: calc(100dvh - var(--head-h)); overflow: auto; }
+.toc-panel { border-top: 1px solid var(--rule); background: var(--surface); max-height: calc(100vh - var(--head-h)); max-height: calc(100dvh - var(--head-h)); overflow: auto; }
 .toc-panel .wrap { padding-block: 16px 24px; }
 .toc { list-style: none; margin: 8px 0 0; padding: 0; columns: 2; column-gap: 48px; }
 .toc li { break-inside: avoid; }
@@ -305,19 +306,19 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 
 /* ---------- Story: the model carries the chapter ---------- */
 .story { position: relative; margin: 72px calc(50% - 50vw) 0; }
-.story-pin { position: sticky; top: var(--head-h); height: calc(100svh - var(--head-h)); }
+.story-pin { position: sticky; top: var(--head-h); height: calc(100vh - var(--head-h)); height: calc(100svh - var(--head-h)); }
 .story-stage { position: relative; height: 100%; background: var(--stage); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); overflow: hidden; }
-.story-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 4vh 4vw; transition: opacity var(--t-in); }
+.story-img { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 4vh 4vw; transition: opacity var(--t-in); }
 .story-stage.is-live .story-img { opacity: 0 !important; }
-.story-host { position: absolute; inset: 0; }
+.story-host { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; }
 .story-host canvas { width: 100% !important; height: 100% !important; display: block; }
 .story-hud { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; gap: 16px; padding: 12px var(--pad); color: var(--ink-2); pointer-events: none; }
 .story-rail { position: absolute; left: var(--pad); right: var(--pad); bottom: 22px; height: 1px; background: var(--rule-2); --k: 0; }
 .story-rail span { position: absolute; left: 0; top: -1px; height: 3px; width: calc(var(--k) * 100%); background: var(--accent); transition: width var(--t-ui); }
 .story-note { position: absolute; right: var(--pad); bottom: 30px; margin: 0; color: var(--ink-3); }
-.story-steps { position: relative; margin-top: calc(-1 * (100svh - var(--head-h))); pointer-events: none; }
-.story-step { min-height: 95svh; display: flex; align-items: center; padding: 0 var(--pad); }
-.story-step:first-child { min-height: calc(100svh - var(--head-h)); }
+.story-steps { position: relative; margin-top: calc(-1 * (100vh - var(--head-h))); margin-top: calc(-1 * (100svh - var(--head-h))); pointer-events: none; }
+.story-step { min-height: 95vh; min-height: 95svh; display: flex; align-items: center; padding: 0 var(--pad); }
+.story-step:first-child { min-height: calc(100vh - var(--head-h)); min-height: calc(100svh - var(--head-h)); }
 .story-card { pointer-events: auto; width: min(400px, 92vw); padding: 20px 22px 22px; background: rgba(247, 246, 243, .95); border: 1px solid var(--ink); opacity: .55; transition: opacity var(--t-in); }
 .story-step.is-active .story-card { opacity: 1; }
 .story-no { display: flex; justify-content: space-between; margin: 0 0 12px; color: var(--ink-3); text-transform: uppercase; }
@@ -325,7 +326,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 .story-card h3 { margin: 0 0 10px; font: 300 32px/1.05 var(--f-sans); letter-spacing: -.025em; }
 .story-card p { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink-2); }
 @media (max-width: 899px) {
-  .story-step { align-items: flex-end; padding-bottom: 64px; min-height: 100svh; }
+  .story-step { align-items: flex-end; padding-bottom: 64px; min-height: 100vh; min-height: 100svh; }
   .story-card { width: 100%; padding: 14px 16px 16px; }
   .story-card h3 { font-size: 26px; }
   .story-card p { font-size: 15px; }
@@ -411,8 +412,8 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 .viewer-head p { margin: 0; }
 .viewer-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; border: 1px solid var(--ink); background: var(--surface); }
 .canvas-wrap { position: relative; min-height: 600px; background: var(--stage); overflow: hidden; }
-#canvas, #canvas canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.viewer-cover { position: absolute; inset: 0; display: grid; }
+#canvas, #canvas canvas { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; width: 100%; height: 100%; }
+.viewer-cover { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; display: grid; }
 .viewer-cover img { width: 100%; height: 100%; object-fit: cover; }
 .cover-panel { position: absolute; left: 16px; bottom: 16px; right: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 16px; background: rgba(247,246,243,.96); border: 1px solid var(--ink); max-width: 560px; }
 .cover-panel p { margin: 0; flex: 1 1 220px; }
@@ -421,10 +422,10 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 #view-label { padding: 4px 8px; background: rgba(247,246,243,.94); font: 400 12px var(--f-mono); }
 .viewer-bottom { position: absolute; left: 12px; bottom: 10px; pointer-events: none; }
 .viewer-bottom span { padding: 3px 8px; background: rgba(247,246,243,.9); }
-.canvas-wrap.is-expanded { position: fixed; inset: 0; z-index: 80; min-height: 0; }
-.touch-lock { position: absolute; inset: 0; display: grid; place-items: end center; padding-bottom: 56px; background: transparent; border: 0; }
+.canvas-wrap.is-expanded { position: fixed; top: 0; right: 0; bottom: 0; left: 0; inset: 0; z-index: 80; min-height: 0; }
+.touch-lock { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; display: grid; place-items: end center; padding-bottom: 56px; background: transparent; border: 0; }
 .touch-lock span { padding: 10px 16px; background: rgba(247,246,243,.96); border: 1px solid var(--ink); font-size: 14px; }
-#room-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+#room-labels { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; pointer-events: none; overflow: hidden; }
 .room-tag { position: absolute; transform: translate(-50%, -50%); padding: 2px 6px; background: rgba(247,246,243,.94); font: 500 11px var(--f-mono); white-space: nowrap; }
 .room-tag.room { font-weight: 400; color: var(--ink-2); }
 .tools { border-left: 1px solid var(--ink); }
@@ -467,13 +468,13 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 .plan-stage { position: relative; background: #fff; border: 1px solid var(--ink); }
 .plan-stage-inner { position: relative; }
 .plan-stage img { width: 100%; background: #fff; }
-.plan-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.plan-svg { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; width: 100%; height: 100%; }
 .plan-svg rect { fill: transparent; stroke: none; }
 .apt-hit { fill: transparent; cursor: pointer; }
 .plan-svg .apt.is-sel rect.r { fill: rgba(140, 45, 62, .2); stroke: var(--accent); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
 .plan-svg .apt:hover rect.r { stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .plan-svg.no-apts .apt rect.r { stroke: none !important; }
-.plan-tags { position: absolute; inset: 0; pointer-events: none; }
+.plan-tags { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; pointer-events: none; }
 .plan-tag { position: absolute; transform: translate(-50%, -50%); padding: 1px 5px; background: rgba(255,255,255,.92); font: 400 10.5px var(--f-mono); white-space: nowrap; color: var(--ink-2); }
 .plan-tag.common { color: var(--ink); border: 1px solid var(--ink); }
 .plan-model .plan-svg, .plan-model .plan-tags { display: none; }
@@ -531,7 +532,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 .route-figure { margin: 0; }
 .route-stage { position: relative; border: 1px solid var(--ink); }
 .route-stage img { width: 100%; }
-.route-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.route-svg { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; width: 100%; height: 100%; }
 .route path { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 10; filter: drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff); }
 .route[data-r="car"] path { stroke-dasharray: 14 8; stroke-linecap: butt; }
 .route circle { fill: var(--surface); stroke: var(--ink); stroke-width: 3; }
@@ -633,7 +634,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 @media (max-width: 1023px) { .foot-grid { grid-template-columns: 1fr; } .foot-grid > * { grid-column: 1 / -1 !important; } }
 
 /* Lightbox */
-.lightbox { width: min(96vw, 1700px); height: min(92dvh, 1200px); max-width: none; max-height: none; padding: 0; border: 1px solid var(--ink); background: var(--surface); color: var(--ink); }
+.lightbox { width: min(96vw, 1700px); height: min(92vh, 1200px); height: min(92dvh, 1200px); max-width: none; max-height: none; padding: 0; border: 1px solid var(--ink); background: var(--surface); color: var(--ink); }
 .lightbox::backdrop { background: rgba(27, 27, 25, .6); }
 .lightbox[open] { display: grid; grid-template-rows: auto 1fr; }
 .lb-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--ink); font-family: var(--f-mono); }
@@ -696,7 +697,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 /* ---------- Scroll scenes: pinned visualisations on the page background ---------- */
 .scene { position: relative; height: 290vh; margin: 72px calc(50% - 50vw) 0; --p: 0; }
 .chapter-body .scene { margin-block: 48px; }
-.scene-pin { position: sticky; top: var(--head-h); height: calc(100svh - var(--head-h)); overflow: hidden; }
+.scene-pin { position: sticky; top: var(--head-h); height: calc(100vh - var(--head-h)); height: calc(100svh - var(--head-h)); overflow: hidden; }
 .scene-media { position: relative; }
 .scene-media img { width: 100%; }
 .scene-kicker { margin: 0 0 10px; color: var(--accent); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; }
@@ -704,7 +705,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 .scene-title--s { font-size: clamp(26px, 2.6vw, 40px); line-height: 1.08; }
 .scene-cap { margin: 8px 0 0; color: var(--ink-3); font-size: 12px; }
 /* the sky arrives from the page: a pale gradient that fades in behind the building */
-.scene-sky { position: absolute; inset: 0; background: linear-gradient(180deg, #C9D6E3 0%, #D9E0E6 32%, rgba(239, 238, 234, 0) 72%); opacity: calc(var(--sky, 0) * .85); pointer-events: none; }
+.scene-sky { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; background: linear-gradient(180deg, #C9D6E3 0%, #D9E0E6 32%, rgba(239, 238, 234, 0) 72%); opacity: calc(var(--sky, 0) * .85); pointer-events: none; }
 
 /* A. Front elevation: text on top, the visualisation below it (never under the text);
    an "application" line paints it across while the pale sky arrives from the page. */
@@ -719,7 +720,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 
 /* B. Portal: starts as a narrow slot on the lift shaft, pulls back to the whole facade */
 .scene--portal { height: 240vh; }
-.scene--portal .scene-fig { position: absolute; inset: 0; margin: 0; }
+.scene--portal .scene-fig { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; margin: 0; }
 .scene--portal .scene-media { height: 100%; clip-path: inset(0 calc((1 - var(--open, 0)) * 34%) 0 calc((1 - var(--open, 0)) * 34%)); }
 .scene--portal .scene-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transform: scale(calc(2.2 - var(--open, 0) * 1.2)); transform-origin: 50% 34%; }
 .scene-card { position: absolute; z-index: 3; left: var(--pad); bottom: clamp(16px, 4vh, 40px); max-width: 430px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--ink); opacity: var(--cap, 0); transform: translateY(calc((1 - var(--cap, 0)) * 24px)); }
@@ -728,7 +729,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 /* C. Kondratyuka 10: the end facade drives in from the side over a moving address line */
 .scene--k10 { height: 260vh; }
 .k10-type { position: absolute; top: 46%; left: 0; margin: 0; white-space: nowrap; font: 400 clamp(110px, 21vw, 360px)/.9 var(--f-mark); letter-spacing: -.02em; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.5px var(--rule-2); transform: translate(calc(6vw - var(--type, 0) * 72vw), -50%); pointer-events: none; }
-.scene--k10 .scene-fig { position: absolute; right: 3vw; bottom: clamp(8px, 2vh, 24px); margin: 0; width: min(72vw, calc((100svh - var(--head-h) - 40px) * 1.554)); transform: translateX(calc((1 - var(--drive, 0)) * 78vw)); }
+.scene--k10 .scene-fig { position: absolute; right: 3vw; bottom: clamp(8px, 2vh, 24px); margin: 0; width: min(72vw, calc((100vh - var(--head-h) - 40px) * 1.554)); width: min(72vw, calc((100svh - var(--head-h) - 40px) * 1.554)); transform: translateX(calc((1 - var(--drive, 0)) * 78vw)); }
 .scene--k10 .scene-card { bottom: auto; top: clamp(18px, 4vh, 44px); }
 
 @media (max-width: 899px) {
@@ -758,7 +759,7 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
    scenes, chapter heads and wide blocks are painted over it, so the words and cards dive under the
    images and come back out after them. */
 .view-article { position: relative; z-index: 1; }
-.edges { position: fixed; inset: var(--head-h) 0 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .5s; }
+.edges { position: fixed; top: var(--head-h); right: 0; bottom: 0; left: 0; inset: var(--head-h) 0 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .5s; }
 .edges.on { opacity: 1; }
 .edges { overflow: hidden; }
 .mq { position: absolute; top: 0; left: 0; writing-mode: vertical-rl; white-space: nowrap; font: 400 110px/1 var(--f-mark); letter-spacing: -.01em; color: transparent; -webkit-text-stroke: 1.2px var(--rule-2); will-change: transform; }
@@ -803,3 +804,22 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
   .scene--front .scene-lead { font-size: 14.5px; line-height: 1.45; }
   .scene--front .scene-fig { justify-content: flex-start; margin-top: clamp(8px, 1.4vh, 16px); }
 }
+
+/* ---------- compat: old iOS and in-app browsers ----------
+   <dialog> before iOS 15.4 is an unknown element: keep it hidden until opened by the script fallback. */
+.lightbox:not([open]) { display: none; }
+.lightbox.is-fallback[open] { position: fixed; top: 4vh; left: 2vw; z-index: 200; width: 96vw; height: 92vh; box-shadow: 0 0 0 100vmax rgba(27, 27, 25, .6); }
+@supports not (aspect-ratio: 1) {
+  @media (max-width: 1023px) { .canvas-wrap { height: calc((100vw - 2 * var(--pad)) * .75); } }
+  @media (max-width: 767px) { .canvas-wrap { height: 125vw; } }
+}
+/* the model story as pre-rendered frames of the same model: while the live model loads, on old devices and as a fallback */
+.story-frames { position: absolute; top: 0; right: 0; bottom: 0; left: 0; top: 0; right: 0; bottom: 0; left: 0; inset: 0; transition: opacity var(--t-in); }
+.story-frames img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.story-frames[data-set="port"] img { object-position: 50% 30%; }
+.story-stage.is-live .story-frames { opacity: 0; pointer-events: none; }
+.story-3d { position: absolute; right: var(--pad); top: 44px; z-index: 3; background: var(--surface); }
+.story-stage.is-live .story-3d { display: none; }
+@media (max-width: 899px) { .story-3d { top: 40px; min-height: 40px; padding: 0 12px; font-size: 13px; } }
+/* a short loop of the Blender animation as frames, where inline video does not play */
+.parts-flip { display: block; width: 100%; height: auto; background: var(--stage); border: 1px solid var(--ink); }

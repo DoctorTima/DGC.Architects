@@ -93,24 +93,43 @@ function guidedStage(dataReady) {
   const sheetBtn = $('#d-sheet'), renderBtn = $('#d-render'), back = $('#d-model-back');
   const modeBtns = $$('.d-modes [data-mode]', stage), explore = $('#d-explore'), close = $('#d-close');
   const steps = $$('.d-step', story), count = $('#d-count'), rail = $('#d-rail');
-  const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
-  let want = gl ? 'model' : 'sheet';     // the reader's choice; a step without an angle falls back to 3D
+  const env = window.DGC_ENV || {};
+  const gl = env.gl2 != null ? env.gl2 : (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
+  // light mode (old iPhones, weak devices): keyframes of the same model; the live viewer only on request
+  let lite = !!env.lite;
+  let want = 'model';                     // the reader's choice; a step without an angle falls back to 3D
   let heard = false, active = null, data = null, loaded = false, ready = false, pending = null, full = false, savedY = 0, opener = null;
 
+  /* keyframes: the guided viewer filmed at every step, two sets (wide and narrow stage), cross-faded */
+  const keys = $('#d-keys'), [ka, kb] = keys ? $$('img', keys) : [];
+  let keyShown = '';
+  function showKey(k) {
+    if (!keys) return;
+    const set = stage.clientWidth >= 900 ? 'l' : 'p', src = `${BASE}keys/${set}/k${k}.webp`;
+    if (keyShown === src) return; keyShown = src;
+    const im = new Image(); im.src = src;
+    const swap = () => { if (keyShown !== src) return; kb.src = src; kb.style.opacity = 1; setTimeout(() => { if (keyShown === src) { ka.src = src; kb.style.opacity = 0; } }, 540); };
+    (im.decode ? im.decode() : Promise.resolve()).then(swap, swap);
+    steps.forEach((s, n) => { if (Math.abs(n - k) === 1) new Image().src = `${BASE}keys/${set}/k${n}.webp`; });
+  }
+
   if (!gl) {
-    modeBtns.find(b => b.dataset.mode === 'model').disabled = true;
     explore.disabled = true;
     $$('[data-open]').forEach(b => { b.disabled = true; b.title = '3D недоступно в этом браузере'; });
-    $('.d-bar', stage).insertAdjacentHTML('beforeend', '<p class="d-nogl mono">3D недоступно в этом браузере: нет WebGL 2. Чертежи и ракурсы Влада работают.</p>');
-    load.textContent = '3D недоступно в этом браузере';
+    $('.d-bar', stage).insertAdjacentHTML('beforeend', '<p class="d-nogl mono">Нет WebGL 2: модель показана кадрами. Чертежи и ракурсы Влада работают.</p>');
+    load.hidden = true;
+  } else if (lite) {
+    load.hidden = true;
+    explore.querySelector('.l-long').textContent = 'Включить 3D-модель';
+    explore.querySelector('.l-short').textContent = 'Включить 3D';
   }
 
   dataReady.then(d => { data = d; if (active) apply(active, true); }).catch(() => {});
 
   /* the viewer runs in its own document (srcdoc), its relative paths resolve against assets/dolina/review/ */
   function loadFrame() {
-    if (loaded || !gl) return; loaded = true;
-    load.textContent = 'Открываю модель…';
+    if (loaded || !gl || lite) return; loaded = true;
+    load.hidden = false; load.textContent = 'Открываю модель…';
     const base = new URL(BASE + 'review/', location.href).href;
     fetch(base + 'index.html').then(r => { if (!r.ok) throw Error(r.status); return r.text(); })
       .then(html => {
@@ -124,7 +143,7 @@ function guidedStage(dataReady) {
     if (e.source !== frame.contentWindow || e.data?.app !== 'dolina-viewer') return;
     const d = e.data; heard = true;
     if (d.progress != null) load.textContent = (d.model === 'before' ? 'Исходная квартира' : 'Модель «Долины»') + ' · ' + d.progress + '%';
-    if (d.ready) { ready = true; load.hidden = true; if (pending) frame.contentWindow.postMessage(pending, '*'); }
+    if (d.ready) { ready = true; load.hidden = true; stage.classList.add('is-live'); if (pending) frame.contentWindow.postMessage(pending, '*'); }
     if (d.close) closeFull();
   });
   function send(cmd) {
@@ -133,6 +152,9 @@ function guidedStage(dataReady) {
     if (ready) frame.contentWindow.postMessage(pending, '*');
   }
   new IntersectionObserver(es => { if (es[0].isIntersecting) loadFrame(); }, {rootMargin: '900px 0px'}).observe(story);
+  // the same check on scroll: an observer set up while the article is hidden can miss its first change
+  const nearStage = () => { if (loaded || !story.offsetParent) return; const r = story.getBoundingClientRect(); if (r.top < innerHeight + 900 && r.bottom > -900) loadFrame(); };
+  addEventListener('scroll', nearStage, {passive: true}); document.addEventListener('rec:view', () => setTimeout(nearStage, 0));
 
   const sheetOf = n => data?.drawings?.[n - 1];
   const viewOf = f => data?.views?.find(v => v.file === f);
@@ -149,19 +171,20 @@ function guidedStage(dataReady) {
     rb.disabled = !v; rb.title = v ? '' : 'Исходная квартира есть только на обмере и в проверочной модели';
     if (v) { const img = $('img', renderBtn), meta = viewOf(v), t = (meta?.title || 'Авторская визуализация') + ' · визуализация Владислава Изотова'; if (!img.src.endsWith(v)) img.src = BASE + v; img.alt = t; renderBtn.dataset.zoom = BASE + v; renderBtn.dataset.title = t; }
     back.textContent = s.dataset.mark || '';
+    showKey(steps.indexOf(s));
     show();
     if (!full && !force) send(cmdOf(s));
   }
   function show() {
     const s = active; if (!s) return;
-    let m = want; if (m === 'render' && !s.dataset.view) m = gl ? 'model' : 'sheet'; if (m === 'model' && !gl) m = 'sheet';
+    let m = want; if (m === 'render' && !s.dataset.view) m = 'model';   // 'model' shows keyframes until the live viewer is ready
     stage.dataset.mode = m;
     modeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
     const sh = sheetOf(+s.dataset.sheet), meta = viewOf(s.dataset.view);
     caption.textContent = m === 'sheet' ? (sh ? `${sh.sheet} · ${sh.title}` : 'Лист альбома')
       : m === 'render' ? `${meta?.title || 'Ракурс'} · Владислав Изотов`
       : s.dataset.action === 'before' ? 'Исходная квартира · стены по АИ-1, мебель — проверка DGC' : 'Проект Влада · модель «Долина»';
-    explore.hidden = m !== 'model';
+    explore.hidden = m !== 'model' || !gl;
   }
   modeBtns.forEach(b => b.addEventListener('click', () => { want = b.dataset.mode; show(); if (want === 'model') loadFrame(); }));
 
@@ -183,6 +206,7 @@ function guidedStage(dataReady) {
   /* free view: the same stage fixed over the page; back to the same place and the same button */
   function openFull(cmd, from) {
     if (!gl) return;
+    lite = false;
     opener = from || document.activeElement; savedY = scrollY; full = true;
     stage.classList.add('is-full'); document.documentElement.classList.add('d-lock');
     stage.setAttribute('role', 'dialog'); stage.setAttribute('aria-modal', 'true'); stage.setAttribute('aria-label', 'Свободный просмотр модели «Долины»');
@@ -201,7 +225,14 @@ function guidedStage(dataReady) {
     if (active) send(cmdOf(active));
     opener?.focus({preventScroll: true});
   }
-  explore.addEventListener('click', () => active && openFull(cmdOf(active), explore));
+  explore.addEventListener('click', () => {
+    if (lite) {
+      lite = false; try { sessionStorage.setItem('dgc-3d', 'on'); } catch (e) {}
+      explore.querySelector('.l-long').textContent = 'Свободный просмотр'; explore.querySelector('.l-short').textContent = 'Вращать';
+      loadFrame(); if (active) send(cmdOf(active)); return;
+    }
+    if (active) openFull(cmdOf(active), explore);
+  });
   close.addEventListener('click', () => closeFull());
   addEventListener('keydown', e => {
     if (!full) return;

@@ -89,7 +89,7 @@ function centreZ(o) { const b = new THREE.Box3().setFromObject(o); return (b.min
 
 function resetMeshes() {
   for (const o of C.meshes) if (o.userData.base) o.position.copy(o.userData.base);
-  if (edges) edges.visible = false; lastKey = '';
+  if (edges) edges.visible = false; lastKey = ''; wantRender = true;
 }
 
 // Drawing lines on the retained shell: the walls that stay.
@@ -130,11 +130,18 @@ function splitBothSides() {
   }
 }
 
+// Render only when the scroll position or the canvas changed: a still page costs nothing
+// (the render loop stops after a few idle frames). wantRender forces one frame after loads and resets.
+let lastP = null, lastW = 0, lastH = 0, forceUntil = 0;
 function render() {
   if (!active || !ready) return false;
-  const P = poseAt(progress()); pose = P;
+  if (performance.now() < forceUntil) wantRender = true;   // a short window after loads: late pieces show up
+  const p = progress(), sz = C.renderer.getSize(new THREE.Vector2());
+  if (!wantRender && lastP !== null && Math.abs(p - lastP) < 1e-4 && sz.x === lastW && sz.y === lastH) return false;
+  wantRender = false; lastP = p; lastW = sz.x; lastH = sz.y;
+  const P = poseAt(p); pose = P;
   cam.fov = P.fov; cam.position.set(...P.cam); cam.lookAt(...P.at);
-  const sz = C.renderer.getSize(new THREE.Vector2()), aspect = sz.x / Math.max(1, sz.y);
+  const aspect = sz.x / Math.max(1, sz.y);
   // Keep the horizontal field of a wide screen on tall phone screens.
   if (aspect < 1.4) { const h = 2 * Math.atan(Math.tan(P.fov * Math.PI / 360) * 1.6); cam.fov = Math.min(70, 2 * Math.atan(Math.tan(h / 2) / aspect) * 180 / Math.PI); }
   if (sz.x >= 900) cam.setViewOffset(sz.x, sz.y, -sz.x * .17, 0, sz.x, sz.y);
@@ -176,10 +183,10 @@ export function init() {
   near.observe($('story'));
   new IntersectionObserver(es => {
     active = es[0].isIntersecting;
-    if (active && ready) V.attach(host, 'story');
+    if (active && ready) { wantRender = true; V.attach(host, 'story'); }
   }, {rootMargin: '0px', threshold: 0}).observe(stage.parentElement);
   document.addEventListener('rec:attach', e => { if (e.detail !== 'story' && C) resetMeshes(); });
-  document.addEventListener('rec:resize', () => { if (cam && host.contains(C.renderer.domElement)) { const r = host.getBoundingClientRect(); cam.aspect = r.width / r.height; cam.updateProjectionMatrix(); } });
+  document.addEventListener('rec:resize', () => { wantRender = true; if (cam && host.contains(C.renderer.domElement)) { const r = host.getBoundingClientRect(); cam.aspect = r.width / r.height; cam.updateProjectionMatrix(); } });
 }
 
 async function load() {
@@ -191,12 +198,13 @@ async function load() {
     cam = new THREE.PerspectiveCamera(30, 1, .5, 400);
     splitBothSides(); buildEdges();
     V.setStoryHook(render);
-    ready = true; stage.classList.add('is-live'); st.textContent = 'Живая модель v10';
+    ready = true; wantRender = true; forceUntil = performance.now() + 2000; stage.classList.add('is-live'); st.textContent = 'Живая модель v10';
     if (active) V.attach(host, 'story');
     const r = host.getBoundingClientRect(); cam.aspect = r.width / Math.max(1, r.height); cam.updateProjectionMatrix();
-    V.loadGroup('life').then(() => C.kick()).then(() => V.loadGroup('details')).then(() => C.kick()).catch(() => {});
+    const again = () => { wantRender = true; forceUntil = performance.now() + 1500; C.kick(); };
+    V.loadGroup('life').then(again).then(() => V.loadGroup('details')).then(again).catch(() => {});
   } catch (e) {
     console.warn('story model unavailable', e);
-    st.textContent = e.message === 'no-webgl' ? 'Браузер не поддерживает WebGL: показаны рендеры модели.' : 'Модель не загрузилась (' + (e && e.message || e) + '): показаны рендеры модели.';
+    st.textContent = e.message === 'no-webgl' ? 'Браузер не поддерживает WebGL: показаны кадры модели.' : 'Модель не загрузилась (' + (e && e.message || e) + '): показаны кадры модели.';
   }
 }

@@ -19,7 +19,30 @@
 <link rel="preload" as="image" href="assets/img/rec-photo-900.webp" media="(max-width: 1023px)">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "REC. Вторая жизнь пятиэтажки", "alternativeHeadline": "Что можно добавить дому, сохранив его основу", "description": "Учебная концепция реконструкции крупноблочного дома серии 1-510 на улице Кондратюка, 10, в Москве: обстройка, лифт до крыши, новые входы, общая терраса и двор. Историю можно прочитать целиком или рассмотреть дом по этажам и разрезам.", "author": {"@type": "Person", "name": "Тимофей Мельниченко"}, "publisher": {"@type": "Organization", "name": "DGC.Architects", "url": "https://dgcarh.com"}, "datePublished": "2026-11-11", "inLanguage": "ru", "keywords": "реконструкция, пятиэтажки, серия 1-510, обстройка, Москва", "about": {"@type": "Place", "name": "Москва, улица Кондратюка, 10"}}</script>
 <script type="importmap">{"imports":{"three":"./js/viewer/vendor/three.module.js"}}</script>
-<script>document.documentElement.classList.add('js');window.REC_ROUTES={"journal": "Журнал DGC.Architects", "rec-vtoraya-zhizn-pyatietazhki": "REC. Вторая жизнь пятиэтажки", "dolina": "Долина. Что помещается на 26,6 м²?", "rec-photo": "REC. Вторая жизнь пятиэтажки"};</script>
+<script>
+/* Device check, before anything heavy loads.
+   lite: the 3D story plays as pre-rendered frames of the same model instead of the live scene:
+   no WebGL 2, iOS before 16 (old iPhones, little memory), weak Android, data saver.
+   inApp: Instagram, Telegram, Facebook, VK and other built-in browsers (they get the live model, with frames as a fallback). */
+(function () {
+  var d = document.documentElement, ua = navigator.userAgent || '', w = window;
+  d.classList.add('js'); w.REC_ROUTES = {"journal": "Журнал DGC.Architects", "rec-vtoraya-zhizn-pyatietazhki": "REC. Вторая жизнь пятиэтажки", "dolina": "Долина. Что помещается на 26,6 м²?", "rec-photo": "REC. Вторая жизнь пятиэтажки"};
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var m = ua.match(/OS (\d+)_(\d+)/), iosV = ios && m ? +m[1] + m[2] / 100 : 0;
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Line\/|VKClient|VK\/|vkontakte|OKApp|Telegram|TikTok|musical_ly|Snapchat|LinkedInApp|Twitter|Pinterest|YandexSearch|\bwv\)/.test(ua)
+    || !!w.TelegramWebviewProxy || !!w.TelegramWebview || (ios && !/Safari\//.test(ua));
+  var gl2 = false;
+  try { var c = document.createElement('canvas'), g = c.getContext('webgl2'); gl2 = !!g; if (g && g.getExtension('WEBGL_lose_context')) g.getExtension('WEBGL_lose_context').loseContext(); } catch (e) {}
+  var mem = navigator.deviceMemory, save = navigator.connection && navigator.connection.saveData;
+  var reason = !gl2 ? 'no-webgl2' : (ios && iosV && iosV < 16) ? 'old-ios' : (mem && mem <= 2) ? 'low-memory' : save ? 'save-data' : '';
+  var force = false; try { force = sessionStorage.getItem('dgc-3d') === 'on'; } catch (e) {}
+  w.DGC_ENV = {ios: ios, iosV: iosV, inApp: inApp, gl2: gl2, lite: !!reason && !(force && gl2), reason: reason};
+  if (w.DGC_ENV.lite) d.classList.add('lite');
+  if (inApp) d.classList.add('in-app');
+  /* if the journal script cannot start (a very old browser), show every page as plain text instead of a blank screen */
+  setTimeout(function () { if (!w.__dgcReady) d.classList.remove('js'); }, 8000);
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержанию</a>
@@ -403,7 +426,8 @@
 <section class="story" id="story" aria-label="Преобразование дома на 3D-модели">
   <div class="story-pin">
     <div class="story-stage" id="story-stage">
-      <img id="story-img" class="story-img" src="assets/img/v7-before-900.webp" alt="" decoding="async">
+      <div class="story-frames" id="story-frames" aria-hidden="true"><img src="assets/frames/rec-story/l/f000.webp" alt="" decoding="async"><img src="assets/frames/rec-story/l/f001.webp" alt="" decoding="async" style="opacity:0"></div>
+      <button type="button" class="btn btn-small story-3d" id="story-3d" hidden>Включить 3D-модель</button>
       <div id="story-host" class="story-host"></div>
       <div class="story-hud mono" aria-hidden="true">
         <span class="hud-l">REC v10 · <span id="story-count">01</span> / 11</span>
@@ -554,7 +578,7 @@
 
     <div class="parts">
       <figure class="parts-fig">
-        <video id="parts-video" muted playsinline loop preload="none" poster="assets/img/rec-exploded-900.webp" width="1600" height="1000" aria-label="Анимация: лифтовые порталы, лестницы и крыша с техническим уровнем подходят к сохраняемому дому сбоку и снова отходят">
+        <video id="parts-video" muted playsinline webkit-playsinline disablepictureinpicture loop preload="metadata" poster="assets/img/rec-exploded-900.webp" width="1600" height="1000" aria-label="Анимация: лифтовые порталы, лестницы и крыша с техническим уровнем подходят к сохраняемому дому сбоку и снова отходят">
           <source src="assets/media/rec-exploded.mp4" type="video/mp4">
         </video>
         <figcaption class="mono">Анимация Blender по модели v10, 6 с. Аналитическая схема состава, не монтажная технология</figcaption>
@@ -999,6 +1023,7 @@
       <button type="button" class="d-layer d-sheet" id="d-sheet" data-zoom="" aria-label="Открыть лист крупно"><img alt="" decoding="async"></button>
       <div class="d-layer d-model" id="d-model">
         <iframe id="d-frame" title="Интерактивные модели квартиры «Долина» до и после перепланировки" allow="fullscreen" tabindex="-1"></iframe>
+        <div class="d-keys" id="d-keys" aria-hidden="true"><img alt="" decoding="async"><img alt="" decoding="async" style="opacity:0"></div>
         <p class="d-load mono" id="d-load" role="status">Модель загрузится, когда вы приблизитесь</p>
         <span class="d-model-back" id="d-model-back" aria-hidden="true">565 мм</span>
       </div>

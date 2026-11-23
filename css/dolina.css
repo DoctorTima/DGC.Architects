@@ -1,3 +1,4 @@
+/* compat: vh and inset fallbacks */
 /* «Долина»: the journal frame of REC (header, fonts, 12-column grid, chapters, mobile rules),
    with the warm oak of the interior as the only accent. Everything is scoped to .view-dolina,
    except the header accent and the running words while this article is open. */
@@ -53,7 +54,7 @@ html.d-lock .d-pin { z-index: 95; }
 @keyframes d-fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* ---------- 01: survey and project, one scale, one boundary ---------- */
-.d-wipe { grid-column: 1 / -1; justify-self: center; position: relative; width: min(100%, calc((100svh - var(--head-h) - 190px) * 1.2046)); min-width: min(100%, 560px); margin: 8px 0 0; background: var(--page); }
+.d-wipe { grid-column: 1 / -1; justify-self: center; position: relative; width: min(100%, calc((100vh - var(--head-h) - 190px) * 1.2046)); width: min(100%, calc((100svh - var(--head-h) - 190px) * 1.2046)); min-width: min(100%, 560px); margin: 8px 0 0; background: var(--page); }
 .d-wipe-head { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--ink); text-transform: uppercase; color: var(--ink-2); }
 .d-wipe-head p { margin: 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .d-wipe-head p:last-child { justify-content: flex-end; text-align: right; }
@@ -62,7 +63,7 @@ html.d-lock .d-pin { z-index: 95; }
 .d-wipe-head p:last-child .d-wipe-area { color: var(--oak); }
 .d-wipe-stage { position: relative; background: #fff; border: 1px solid var(--ink); touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; overflow: hidden; }
 .d-wipe-stage img { width: 100%; pointer-events: none; }
-.d-wipe-old { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); background: #fff; }
+.d-wipe-old { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); background: #fff; }
 .d-wipe-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 0; border-left: 2px solid var(--oak); pointer-events: none; }
 .d-wipe-line i { position: absolute; top: 50%; left: -19px; width: 36px; height: 36px; transform: translateY(-50%); background: var(--surface); border: 1px solid var(--ink); }
 .d-wipe-line i::before, .d-wipe-line i::after { content: ""; position: absolute; top: 12px; border: 6px solid transparent; }
@@ -77,9 +78,9 @@ html.d-lock .d-pin { z-index: 95; }
    A full-bleed pinned stage; cards travel over it. The viewer frame is larger than the stage and
    clipped, which moves the model's centre away from the cards (right on wide screens, up on narrow ones). */
 .d-story { position: relative; margin: 40px calc(50% - 50vw) 0; }
-.d-pin { position: sticky; top: var(--head-h); height: calc(100svh - var(--head-h)); background: var(--page); z-index: 1; }
+.d-pin { position: sticky; top: var(--head-h); height: calc(100vh - var(--head-h)); height: calc(100svh - var(--head-h)); background: var(--page); z-index: 1; }
 .d-stage { position: relative; height: 100%; background: var(--stage); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); overflow: hidden; --shift: min(440px, 34vw); }
-.d-layer { position: absolute; inset: 0; margin: 0; padding: 0; border: 0; opacity: 0; visibility: hidden; transition: opacity 420ms var(--ease), visibility 0s 420ms; }
+.d-layer { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; margin: 0; padding: 0; border: 0; opacity: 0; visibility: hidden; transition: opacity 420ms var(--ease), visibility 0s 420ms; }
 .d-stage[data-mode="sheet"] .d-sheet, .d-stage[data-mode="model"] .d-model, .d-stage[data-mode="render"] .d-render { opacity: 1; visibility: visible; transition: opacity 420ms var(--ease), visibility 0s; }
 .d-sheet { background: #fff; cursor: zoom-in; }
 .d-render { background: var(--stage); cursor: zoom-in; }
@@ -96,9 +97,9 @@ html.d-lock .d-pin { z-index: 95; }
 .d-modes > button[disabled] { color: var(--ink-3); }
 .d-close { position: absolute; top: 10px; right: 10px; z-index: 4; background: var(--surface); }
 
-.d-steps { position: relative; z-index: 2; margin-top: calc(-1 * (100svh - var(--head-h))); pointer-events: none; padding-bottom: 10svh; }
-.d-step { min-height: 95svh; display: flex; align-items: center; padding: 0 var(--d-left); }
-.d-step:first-child { min-height: calc(100svh - var(--head-h)); }
+.d-steps { position: relative; z-index: 2; margin-top: calc(-1 * (100vh - var(--head-h))); margin-top: calc(-1 * (100svh - var(--head-h))); pointer-events: none; padding-bottom: 10vh; padding-bottom: 10svh; }
+.d-step { min-height: 95vh; min-height: 95svh; display: flex; align-items: center; padding: 0 var(--d-left); }
+.d-step:first-child { min-height: calc(100vh - var(--head-h)); min-height: calc(100svh - var(--head-h)); }
 .d-card { pointer-events: auto; width: min(400px, 92vw); padding: 20px 22px 18px; background: rgba(247, 246, 243, .95); border: 1px solid var(--ink); opacity: .55; transition: opacity var(--t-in); }
 .d-step.is-active .d-card { opacity: 1; }
 .d-card .d-over { margin: 0 0 12px; }
@@ -111,7 +112,7 @@ html.d-lock .d-pin { z-index: 95; }
 .d-card--head .chapter-title { font: 300 clamp(30px, 2.6vw, 38px)/1.04 var(--f-sans); letter-spacing: -.03em; margin: 0 0 12px; max-width: none; color: var(--ink); }
 
 /* free view: the same stage, fixed over the page */
-.d-stage.is-full { position: fixed; inset: 0; height: auto; z-index: 90; border: 0; }
+.d-stage.is-full { position: fixed; top: 0; right: 0; bottom: 0; left: 0; inset: 0; height: auto; z-index: 90; border: 0; }
 .d-stage.is-full .d-layer:not(.d-model), .d-stage.is-full .d-bar, .d-stage.is-full .d-model-back, .d-stage.is-full .story-hud, .d-stage.is-full .story-rail { display: none; }
 .d-stage.is-full .d-model { opacity: 1; visibility: visible; }
 .d-stage.is-full iframe { top: 0; left: 0; width: 100%; height: 100%; pointer-events: auto; }
@@ -127,13 +128,14 @@ html.d-lock .d-pin { z-index: 95; }
   .d-bar .seg > button { min-height: 38px; padding: 0 10px; font-size: 12px; }
   .d-explore { min-height: 40px; padding: 0 10px; font-size: 13px; }
   .d-model-back { top: 86px; right: auto; left: var(--pad); font-size: clamp(40px, 10vw, 72px); }
-  .d-step, .d-step:first-child { align-items: flex-end; padding: 0 var(--pad) 40px; min-height: 100svh; }
+  .d-step, .d-step:first-child { align-items: flex-end; padding: 0 var(--pad) 40px; min-height: 100vh; min-height: 100svh; }
   .d-card { width: 100%; max-width: 620px; padding: 14px 16px 12px; opacity: .8; }
   .d-card .d-val { font-size: 34px; }
   .d-card h3 { font-size: 24px; margin-bottom: 8px; }
   .d-card p { font-size: 15px; line-height: 1.5; margin-bottom: 8px; }
   .d-card--head .chapter-title { font-size: 28px; }
-  .d-stage .story-hud .hud-r { max-width: 64%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .d-stage .story-hud .hud-l { flex: none; white-space: nowrap; }
+  .d-stage .story-hud .hud-r { min-width: 0; max-width: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
 @media (max-width: 520px) { .d-explore .l-long { display: none; } .d-explore .l-short { display: inline; } }
 @media (max-width: 380px) { .d-bar .seg > button { padding: 0 7px; } .d-explore .ext { display: none; } }
@@ -144,8 +146,8 @@ html.d-lock .d-pin { z-index: 95; }
 .d-arch .scene-pin { background: #2A2622; }
 .d-arch-a, .d-arch-b { position: absolute; left: 50%; top: 50%; will-change: transform; }
 .d-arch-a img, .d-arch-b img { width: 100%; height: 100%; }
-.d-arch-b { width: max(100vw, calc((100svh - var(--head-h)) * 1.3393)); aspect-ratio: 1650 / 1232; transform: translate(-50%, -50%) scale(calc(1.2 - var(--mix, 0) * .2)); }
-.d-arch-a { width: max(100vw, calc((100svh - var(--head-h)) * 1.2634)); aspect-ratio: 1650 / 1306; --x0: -50%; --dx: -22.4%; --dy: -8%;
+.d-arch-b { width: max(100vw, calc((100vh - var(--head-h)) * 1.3393)); width: max(100vw, calc((100svh - var(--head-h)) * 1.3393)); aspect-ratio: 1650 / 1232; transform: translate(-50%, -50%) scale(calc(1.2 - var(--mix, 0) * .2)); }
+.d-arch-a { width: max(100vw, calc((100vh - var(--head-h)) * 1.2634)); width: max(100vw, calc((100svh - var(--head-h)) * 1.2634)); aspect-ratio: 1650 / 1306; --x0: -50%; --dx: -22.4%; --dy: -8%;
   transform-origin: 72.4% 58%; opacity: calc(1 - var(--mix, 0));
   transform: translate(calc(var(--x0) + var(--dx) * var(--push, 0)), calc(-50% + var(--dy) * var(--push, 0))) scale(calc(1 + var(--push, 0) * var(--push, 0) * 2.3)); }
 @media (max-aspect-ratio: 1/1) { .d-arch-a { --x0: -66%; --dx: -6.4%; } }
@@ -276,3 +278,20 @@ html.d-lock .d-pin { z-index: 95; }
 @media (prefers-reduced-motion: reduce) { .j-eq-mark { transition: none; } }
 
 @media print { .d-story, .d-arch, .d-elec-places, .d-elec-blocks, .d-explore { display: none !important; } }
+
+/* ---------- compat: old iOS and in-app browsers ---------- */
+@supports not (width: 1cqw) {
+  .d-cover { --fw: min(100vw, 1520px); }
+  .j-eq-visual { --tf: calc((min(100vw, 1520px) - 2 * var(--pad) - 2 * var(--gap)) / 2 / 5.2); }
+  @media (max-width: 899px) { .j-eq-visual { --tf: calc((100vw - 2 * var(--pad)) / 5.2); } }
+}
+@supports not (aspect-ratio: 1) {
+  .d-arch-b { height: max(calc(100vw / 1.3393), calc(100vh - var(--head-h))); }
+  .d-arch-a { height: max(calc(100vw / 1.2634), calc(100vh - var(--head-h))); }
+}
+/* keyframes of the same model, shown while the live viewer loads and where it cannot run */
+.d-keys { position: absolute; top: 0; left: 0; width: calc(100% + var(--shift)); height: 100%; pointer-events: none; transition: opacity 420ms var(--ease); }
+.d-keys img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transition: opacity 520ms var(--ease); }
+.d-stage.is-live .d-keys { opacity: 0; }
+@media (max-width: 899px) { .d-keys { top: -34%; width: 100%; height: 134%; } .d-keys img { object-position: 50% 40%; } }
+.d-stage.is-full .d-keys { display: none; }

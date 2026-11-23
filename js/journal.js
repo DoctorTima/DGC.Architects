@@ -67,7 +67,9 @@ const chapters = $$('[data-chapter]');
 // Continuation blocks, scroll scenes and story groups belong to the numbered chapter before them.
 const tracked = $$('.chapter, .scene, [data-chapter], .d-track'); let owner = null;
 tracked.forEach(el => { if (el.matches('[data-chapter]')) owner = el; el._owner = owner; });
+let curSec = null;
 function setChapter(sec) {
+  if (sec === curSec) return; curSec = sec;
   chapters.forEach(c => c.classList.toggle('is-current', c === sec));
   $('#chapter-now-no').textContent = sec.dataset.chapter;
   $('#chapter-now-title').textContent = sec.querySelector('.chapter-title').textContent;
@@ -86,10 +88,19 @@ function updateProgress() {
   if (!art) { bar.style.width = '0'; return; }
   const r = art.getBoundingClientRect(), h = r.height - innerHeight;
   bar.style.width = Math.max(0, Math.min(1, -r.top / Math.max(1, h))) * 100 + '%';
-  const firstCh = art.querySelector('.chapter');
-  if (firstCh && firstCh.getBoundingClientRect().top > innerHeight * .4) setChapter(firstCh);
+  // the current chapter: the last tracked block whose top has passed 35% of the window (in reading order);
+  // done here as well as by the observer, which can miss changes made while the article was hidden
+  const line = innerHeight * .35; let cur = null;
+  for (const el of tracked) {
+    if (!art.contains(el) || !el._owner) continue;
+    const t = el.getBoundingClientRect().top; if (t > line) break;
+    if (el.offsetHeight) cur = el._owner;
+  }
+  const firstCh = art.querySelector('[data-chapter]');
+  if (cur) setChapter(cur); else if (firstCh) setChapter(firstCh);
 }
 document.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); } }, {passive: true});
+document.addEventListener('rec:view', () => requestAnimationFrame(updateProgress));
 
 /* ---------- Generic tabs (timeline, programmes, cases) ---------- */
 function tabs(root, tabSel) {
@@ -303,6 +314,10 @@ async function viewer() {
 /* ---------- Lightbox for drawings and the board ---------- */
 (function lightbox() {
   const dlg = $('#lightbox'), img = $('#lb-img'), title = $('#lb-title'), scroller = $('.lb-scroll');
+  if (typeof dlg.showModal !== 'function') {   // <dialog> before iOS 15.4: open it as a fixed layer
+    dlg.showModal = () => { dlg.setAttribute('open', ''); dlg.classList.add('is-fallback'); };
+    dlg.close = () => dlg.removeAttribute('open');
+  }
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-zoom]'); if (!b) return;
     const inner = b.querySelector('img'); if (!b.dataset.zoom) return;
@@ -319,26 +334,84 @@ async function viewer() {
   });
 })();
 
-/* ---------- Chapter 05: the model story (loaded when the chapter approaches) ---------- */
+/* ---------- Chapter 05: the model story ----------
+   Pre-rendered frames of the model run first and everywhere (story-frames.js, no three.js).
+   The live model loads on top when the chapter approaches - except in the light mode (old iPhones,
+   no WebGL 2, weak devices), where the reader can switch it on. If it fails, the frames stay. */
 (function story() {
   const el = $('#story'); if (!el) return;
-  const io = new IntersectionObserver(async es => {
-    if (!es[0].isIntersecting) return; io.disconnect();
+  const env = window.DGC_ENV || {}, st = $('#story-load'), btn = $('#story-3d');
+  let started = false;
+  async function startLive() {
+    if (started) return; started = true;
+    if (btn) btn.hidden = true;
     try { const m = await import('./viewer/story.js'); m.init(); await viewer(); }
-    catch (e) { console.warn(e); const st = $('#story-load'); if (st) st.textContent = 'Модель не загрузилась в этом браузере: ' + (e && e.message || e); }
-  }, {rootMargin: '2500px 0px'});
+    catch (e) { console.warn(e); if (st) st.textContent = 'Живая модель не запустилась в этом браузере: показаны кадры той же модели'; }
+  }
+  // starts when the chapter is within 2500 px; checked on scroll and on page change as well as by an
+  // observer, because an observer set up while the article is still hidden can miss its first change
+  let began = false;
+  async function begin() {
+    if (began) return; began = true; io.disconnect(); removeEventListener('scroll', near); document.removeEventListener('rec:view', near);
+    try { (await import('./story-frames.js')).init(); } catch (e) { console.warn(e); }
+    if (env.lite) {
+      if (st) st.textContent = 'Кадры модели v10';
+      if (btn && env.gl2) {
+        btn.hidden = false;
+        btn.addEventListener('click', () => { try { sessionStorage.setItem('dgc-3d', 'on'); } catch (e) {} if (st) st.textContent = 'Загружаем живую модель…'; startLive(); });
+      }
+    } else startLive();
+  }
+  function near() {
+    if (began || !el.offsetParent) return;
+    const r = el.getBoundingClientRect();
+    if (r.top < innerHeight + 2500 && r.bottom > -2500) begin();
+  }
+  const io = new IntersectionObserver(es => { if (es[0].isIntersecting) begin(); }, {rootMargin: '2500px 0px'});
   io.observe(el);
+  addEventListener('scroll', near, {passive: true}); document.addEventListener('rec:view', near);
+  setTimeout(near, 0);
 })();
 
-/* ---------- Chapter 06: Blender animation, plays only while visible ---------- */
+/* ---------- Chapter 06: Blender animation, plays only while visible ----------
+   The video plays inline. Where inline video does not start (some in-app browsers, power saving, old iOS)
+   the same 6 s animation runs as 60 light frames (assets/frames/rec-parts), 10 per second. */
 (function parts() {
   const v = $('#parts-video'), b = $('#parts-play'); if (!v) return;
-  const set = on => { b.setAttribute('aria-pressed', String(on)); b.textContent = on ? 'Пауза' : 'Воспроизвести'; };
-  b.addEventListener('click', () => { if (v.paused) { v.play().catch(() => {}); set(true); } else { v.pause(); set(false); } });
+  let playing = false, flip = null, visible = false;
+  const set = on => { playing = on; b.setAttribute('aria-pressed', String(on)); b.textContent = on ? 'Пауза' : 'Воспроизвести'; };
+  const N = 60, src = k => `assets/frames/rec-parts/p${String(k).padStart(2, '0')}.webp`;
+  function toFrames() {
+    if (flip) return flip;
+    const img = new Image(); img.className = 'parts-flip'; img.width = 1600; img.height = 1000; img.alt = v.getAttribute('aria-label') || '';
+    img.src = v.poster; v.replaceWith(img);
+    const cache = [], ok = [];
+    for (let k = 0; k < N; k++) { const im = new Image(); im.onload = () => { ok[k] = true; }; im.src = src(k); cache.push(im); }
+    let k = 0, last = 0, raf = 0;
+    const tick = t => {
+      raf = 0; if (!flip.on) return;
+      if (t - last >= 100) { last = t; const next = (k + 1) % N; if (ok[next]) { k = next; img.src = cache[k].src; } }
+      raf = requestAnimationFrame(tick);
+    };
+    flip = {on: false, play() { if (!this.on) { this.on = true; raf = requestAnimationFrame(tick); } set(true); }, pause() { this.on = false; set(false); }};
+    return flip;
+  }
+  const lite = document.documentElement.classList.contains('lite');
+  function start() {
+    if (flip || lite) { toFrames().play(); return; }
+    const t0 = v.currentTime;
+    v.play().then(() => {
+      set(true);
+      // a webview may "play" a frozen picture: check that time really moves
+      setTimeout(() => { if (visible && !v.paused && v.currentTime === t0 && v.readyState < 3) toFrames().play(); }, 2500);
+    }).catch(() => toFrames().play());
+  }
+  function stop() { if (flip) flip.pause(); else { v.pause(); set(false); } }
+  b.addEventListener('click', () => { if (playing) stop(); else start(); });
   new IntersectionObserver(es => {
-    if (es[0].isIntersecting && !reduced()) { v.play().then(() => set(true)).catch(() => {}); }
-    else if (!es[0].isIntersecting) { v.pause(); set(false); }
-  }, {threshold: .35}).observe(v);
+    visible = es[0].isIntersecting;
+    if (visible && !reduced()) start(); else if (!visible) stop();
+  }, {threshold: .35}).observe(v.parentElement);
 })();
 
 /* ---------- Reveal on entry (headings draw in like a line, figures rise) ---------- */
@@ -411,7 +484,15 @@ async function viewer() {
   function words(art) {
     if (wordsFor === art) return; wordsFor = art;
     let text = REC_TEXT; try { const own = JSON.parse(art.dataset.edges || 'null'); if (own?.length === 3) text = own; } catch {}
-    T.forEach((t, i) => { t.innerHTML = text[i].repeat(14); t.drift = i * 300; });
+    T.forEach((t, i) => { t.unit = text[i]; t.drift = i * 300; });
+    geo = {};
+  }
+  // two equal halves, each a little taller than the window: the loop moves by one half
+  function fill(t) {
+    if (t.hidden || !t.unit) return;
+    t.innerHTML = t.unit + t.unit;
+    const u = t.scrollHeight / 2 || 1, n = Math.max(1, Math.ceil(innerHeight * 1.25 / u));
+    t.innerHTML = t.unit.repeat(2 * n);
   }
   let lastY = scrollY, raf = 0, geo = {};
   const place = (t, x, size) => { t.hidden = !size; if (size) { t.style.left = x + 'px'; t.style.fontSize = size + 'px'; } };
@@ -430,13 +511,15 @@ async function viewer() {
       place(T[1], 0, 0);
       place(T[2], W - R / 2 - 6, R >= 130 ? Math.min(140, R * .5) : 0);
     }
+    T.forEach(fill);
     return true;
   }
   function update() {
     raf = 0;
     const art = document.querySelector('.view-article.is-active');
-    if (!art || !geometry(art)) { root.classList.remove('on'); return; }
+    if (!art) { root.classList.remove('on'); return; }
     words(art);
+    if (!geometry(art)) { root.classList.remove('on'); return; }
     const hero = art.querySelector('.hero, .d-cover'), end = art.querySelector('.art-end');
     root.classList.toggle('on', hero.getBoundingClientRect().bottom < innerHeight * .6 && (!end || end.getBoundingClientRect().top > innerHeight * .3));
     const dy = scrollY - lastY; lastY = scrollY;
@@ -452,7 +535,7 @@ async function viewer() {
   const kick = () => { if (!raf) raf = requestAnimationFrame(update); };
   addEventListener('scroll', kick, {passive: true}); addEventListener('resize', kick); document.addEventListener('rec:view', kick);
   // a slow drift so the words breathe even when the reader stops
-  setInterval(() => { if (root.classList.contains('on') && !reduced() && !document.hidden) { T.forEach(t => t.drift += .45 * t.dataset.speed); kick(); } }, 40);
+  setInterval(() => { if (!document.documentElement.classList.contains('lite') && root.classList.contains('on') && !reduced() && !document.hidden) { T.forEach(t => t.drift += .45 * t.dataset.speed); kick(); } }, 40);
   update();
 })();
 
@@ -488,7 +571,6 @@ async function viewer() {
 (function noZoom() {
   const stop = e => e.preventDefault();
   ['gesturestart', 'gesturechange', 'gestureend'].forEach(t => document.addEventListener(t, stop, {passive: false}));
-  document.addEventListener('touchmove', e => { if (e.touches.length > 1 && !e.target.closest('canvas')) e.preventDefault(); }, {passive: false});
   let last = 0;
   document.addEventListener('touchend', e => { const now = Date.now(); if (now - last < 300 && !e.target.closest('a, button, input, select, canvas, [role="tab"]')) e.preventDefault(); last = now; }, {passive: false});
   // links to other sites open in a new tab (the journal may live inside an iframe on Tilda)
@@ -496,5 +578,6 @@ async function viewer() {
 })();
 
 /* ---------- Boot ---------- */
+document.documentElement.classList.add('js'); window.__dgcReady = true;
 const first = viewFor(location.hash);
 show(first.view, {anchor: first.anchor});
