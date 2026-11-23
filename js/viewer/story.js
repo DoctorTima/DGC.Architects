@@ -186,6 +186,11 @@ export function init() {
     if (active && ready) { wantRender = true; V.attach(host, 'story'); }
   }, {rootMargin: '0px', threshold: 0}).observe(stage.parentElement);
   document.addEventListener('rec:attach', e => { if (e.detail !== 'story' && C) resetMeshes(); });
+  document.addEventListener('rec:gl-lost', () => {
+    ready = false; stage.classList.remove('is-live');
+    const st = $('story-load'); if (st) st.textContent = 'Браузер выгрузил 3D: показаны кадры модели';
+    dispatchEvent(new Event('scroll'));
+  });
   document.addEventListener('rec:resize', () => { wantRender = true; if (cam && host.contains(C.renderer.domElement)) { const r = host.getBoundingClientRect(); cam.aspect = r.width / r.height; cam.updateProjectionMatrix(); } });
 }
 

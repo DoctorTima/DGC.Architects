@@ -175,6 +175,8 @@ async function ensureRenderer() {
     const canvas = document.createElement('canvas');
     if (!(canvas.getContext('webgl2') || canvas.getContext('webgl'))) throw new Error('no-webgl');
     renderer = new THREE.WebGLRenderer({antialias: true, powerPreference: 'high-performance', canvas});
+    // iPhone may drop the 3D context under memory pressure: the story goes back to its frames
+    canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); document.dispatchEvent(new Event('rec:gl-lost')); });
     renderer.setPixelRatio(Math.min(devicePixelRatio, coarse ? 1.5 : 2)); renderer.setClearColor(0xe7e6e1, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.03;
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.localClippingEnabled = true;

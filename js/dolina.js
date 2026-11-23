@@ -98,7 +98,20 @@ function guidedStage(dataReady) {
   // light mode (old iPhones, weak devices): keyframes of the same model; the live viewer only on request
   let lite = !!env.lite;
   let want = 'model';                     // the reader's choice; a step without an angle falls back to 3D
-  let heard = false, active = null, data = null, loaded = false, ready = false, pending = null, full = false, savedY = 0, opener = null;
+  let heard = false, failed = false, active = null, data = null, loaded = false, ready = false, pending = null, full = false, savedY = 0, opener = null;
+
+  /* 3D did not start or was dropped by the browser: the stage stays on keyframes, nothing waits or blocks.
+     The buttons that need the live model are switched off with an honest label. */
+  function fail(why) {
+    if (failed) return; failed = true; ready = false;
+    if (full) closeFull(true);
+    stage.classList.remove('is-live'); load.hidden = true;
+    try { frame.removeAttribute('srcdoc'); frame.src = 'about:blank'; } catch (e) {}
+    explore.disabled = true; explore.title = '3D не запустилась в этом браузере';
+    explore.querySelector('.l-long').textContent = '3D недоступно'; explore.querySelector('.l-short').textContent = '3D недоступно';
+    $$('[data-open]').forEach(b => { b.disabled = true; b.title = '3D не запустилась в этом браузере'; });
+    show(); console.warn('Dolina 3D:', why);
+  }
 
   /* keyframes: the guided viewer filmed at every step, two sets (wide and narrow stage), cross-faded */
   const keys = $('#d-keys'), [ka, kb] = keys ? $$('img', keys) : [];
@@ -128,22 +141,23 @@ function guidedStage(dataReady) {
 
   /* the viewer runs in its own document (srcdoc), its relative paths resolve against assets/dolina/review/ */
   function loadFrame() {
-    if (loaded || !gl || lite) return; loaded = true;
+    if (loaded || !gl || lite || failed) return; loaded = true;
     load.hidden = false; load.textContent = 'Открываю модель…';
     const base = new URL(BASE + 'review/', location.href).href;
     fetch(base + 'index.html').then(r => { if (!r.ok) throw Error(r.status); return r.text(); })
       .then(html => {
         frame.srcdoc = html.replace('<meta charset="utf-8">', `<meta charset="utf-8"><base href="${base}">`);
         // if the viewer never answers (a strict browser or host policy), say so instead of waiting forever
-        setTimeout(() => { if (!heard) load.textContent = '3D не запустилась в этом окне. Чертежи и ракурсы Влада доступны.'; }, 30000);
+        setTimeout(() => { if (!heard) fail('no answer from the viewer'); }, 25000);
       })
-      .catch(e => { load.textContent = 'Модель не загрузилась: ' + (e.message || e) + '. Чертежи и ракурсы доступны.'; });
+      .catch(e => fail(e.message || e));
   }
   addEventListener('message', e => {
     if (e.source !== frame.contentWindow || e.data?.app !== 'dolina-viewer') return;
     const d = e.data; heard = true;
+    if (d.error || d.lost) { fail(d.error || 'context lost'); return; }
     if (d.progress != null) load.textContent = (d.model === 'before' ? 'Исходная квартира' : 'Модель «Долины»') + ' · ' + d.progress + '%';
-    if (d.ready) { ready = true; load.hidden = true; stage.classList.add('is-live'); if (pending) frame.contentWindow.postMessage(pending, '*'); }
+    if (d.ready && !failed) { ready = true; load.hidden = true; stage.classList.add('is-live'); show(); if (pending) frame.contentWindow.postMessage(pending, '*'); }
     if (d.close) closeFull();
   });
   function send(cmd) {
@@ -183,7 +197,7 @@ function guidedStage(dataReady) {
     const sh = sheetOf(+s.dataset.sheet), meta = viewOf(s.dataset.view);
     caption.textContent = m === 'sheet' ? (sh ? `${sh.sheet} · ${sh.title}` : 'Лист альбома')
       : m === 'render' ? `${meta?.title || 'Ракурс'} · Владислав Изотов`
-      : s.dataset.action === 'before' ? 'Исходная квартира · стены по АИ-1, мебель — проверка DGC' : 'Проект Влада · модель «Долина»';
+      : (s.dataset.action === 'before' ? 'Исходная квартира · стены по АИ-1, мебель — проверка DGC' : 'Проект Влада · модель «Долина»') + (ready ? '' : ' · кадры модели');
     explore.hidden = m !== 'model' || !gl;
   }
   modeBtns.forEach(b => b.addEventListener('click', () => { want = b.dataset.mode; show(); if (want === 'model') loadFrame(); }));
@@ -205,7 +219,7 @@ function guidedStage(dataReady) {
 
   /* free view: the same stage fixed over the page; back to the same place and the same button */
   function openFull(cmd, from) {
-    if (!gl) return;
+    if (!gl || failed) return;
     lite = false;
     opener = from || document.activeElement; savedY = scrollY; full = true;
     stage.classList.add('is-full'); document.documentElement.classList.add('d-lock');

@@ -147,7 +147,7 @@ document.body.insertAdjacentHTML('beforeend', '<svg width="0" height="0" style="
   let lastImg = '';
   function render(v) {
     range.value = v; range.style.setProperty('--p', v + '%'); out.value = Math.round(v) + '%';
-    const s = STAGES.find(s => v <= s.to) || STAGES.at(-1);
+    const s = STAGES.find(s => v <= s.to) || STAGES[STAGES.length - 1];
     title.textContent = s.title; text.textContent = s.text;
     range.setAttribute('aria-valuetext', `${Math.round(v)}%: ${s.title}`);
     $$('.tr-stage-buttons button', root).forEach(b => {
