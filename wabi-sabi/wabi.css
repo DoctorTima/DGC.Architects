@@ -142,8 +142,8 @@ table { border-collapse: collapse; width: 100%; }
 @media (max-width: 560px) { .outputs td { font-size: 14px; } .outputs th:nth-child(3), .outputs td:nth-child(3) { display: none; } }
 
 /* ---------- визуализации ---------- */
-.gal-h { margin-top: 28px; }
-.gal-h:first-child { margin-top: 0; }
+.furn-h.gal-h { margin-top: 36px; }
+.furn-h.gal-h:first-child { margin-top: 0; }
 .gal-row { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 10px; }
 .shot { margin: 0; min-width: 0; }
 .shot img { width: 100%; border: 1px solid var(--ink); transition: opacity .2s; }

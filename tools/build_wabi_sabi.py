@@ -98,6 +98,8 @@ FURNITURE = [
     ]),
 ]
 
+SHOW_FURNITURE = False  # раздел «Мебель и техника» скрыт по просьбе 23.11.2026
+
 STATUS_LABEL = {'ok': 'в продаже', 'wait': 'уточняем', 'off': 'снят', 'pick': 'подбор'}
 
 
@@ -199,6 +201,18 @@ def furniture_html():
     return '\n'.join(out)
 
 
+FURNITURE_SECTION = (f'''<section class="furniture" id="furniture" aria-labelledby="furniture-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-num mono">04</span>
+      <h2 id="furniture-h">Мебель и техника</h2>
+      <p class="sec-meta mono">Откуда вещи и сколько стоят</p>
+    </header>
+    <p class="room-lead">Цены — из магазинов на дату в строке, со скидкой, если она есть; перед заказом их стоит проверить. Где написано «подбор», модель из проекта не продаётся в России или ещё не выбрана окончательно — мы предложим варианты.</p>
+''' + furniture_html() + f'''
+  </div>
+</section>''') if SHOW_FURNITURE else ''
+
 CFG = {r['key']: dict(url=r['url'], prefix=r['prefix'], hx=r['hx'], hz=r['hz'], iso=r['iso'], views=r['views'],
                       markers=[dict(id=m['id'], type=m['type'], what=m['what'], wall=m['wall'], h=m['h'], p=m['p'],
                                     where=(r['walls'][m['wall']] if m['wall'] else 'потолок')) for m in r['markers']])
@@ -211,9 +225,9 @@ PAGE = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Wabi-Sabi. Кухня и прихожая | DGC Architects</title>
-<meta name="description" content="Проект интерьера в стиле ваби-саби: 3D-модели кухни и прихожей, выводы электрики, визуализации и мебель.">
+<meta name="description" content="Проект интерьера в стиле ваби-саби: 3D-модели кухни и прихожей, выводы электрики и визуализации.">
 <meta property="og:title" content="Wabi-Sabi. Кухня и прихожая">
-<meta property="og:description" content="3D-модели, выводы электрики, визуализации и мебель. DGC Architects.">
+<meta property="og:description" content="3D-модели, выводы электрики и визуализации. DGC Architects.">
 <meta property="og:image" content="https://doctortima.github.io/DGC.Architects/wabi-sabi/img/og.jpg">
 <meta name="theme-color" content="#EFEEEA">
 <link rel="preload" href="../assets/fonts/dela-gothic-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -231,7 +245,7 @@ PAGE = f'''<!doctype html>
       <a class="nav-link" href="#kitchen">Кухня</a>
       <a class="nav-link" href="#hall">Прихожая</a>
       <a class="nav-link" href="#renders">Визуализации</a>
-      <a class="nav-link" href="#furniture">Мебель</a>
+{'      <a class="nav-link" href="#furniture">Мебель</a>' if SHOW_FURNITURE else ''}
     </nav>
   </div>
 </header>
@@ -243,12 +257,12 @@ PAGE = f'''<!doctype html>
       <p class="kicker mono">Мальцево · кухня и прихожая · ноябрь 2026</p>
       <h1 class="hero-title">WABI-<br>SABI</h1>
       <p class="hero-lead">Ваби-саби — красота несовершенного: известковая штукатурка с живой фактурой, дерево с открытой текстурой, латунь, которая темнеет со временем. Ничего глянцевого и ничего лишнего.</p>
-      <p class="hero-sub">Здесь обе комнаты в 3D. Их можно покрутить, снять и вернуть потолок и посмотреть, где будут розетки, выключатели и выводы под свет. Ниже — визуализации и мебель со ссылками и ценами.</p>
+      <p class="hero-sub">Здесь обе комнаты в 3D. Их можно покрутить, снять и вернуть потолок и посмотреть, где будут розетки, выключатели и выводы под свет. Ниже — визуализации.</p>
       <ul class="hero-index mono">
         <li><a href="#kitchen"><span>01</span>Кухня · 3D</a></li>
         <li><a href="#hall"><span>02</span>Прихожая · 3D</a></li>
         <li><a href="#renders"><span>03</span>Визуализации</a></li>
-        <li><a href="#furniture"><span>04</span>Мебель и техника</a></li>
+{'        <li><a href="#furniture"><span>04</span>Мебель и техника</a></li>' if SHOW_FURNITURE else ''}
       </ul>
     </div>
     <figure class="hero-fig">
@@ -273,17 +287,7 @@ PAGE = f'''<!doctype html>
   </div>
 </section>
 
-<section class="furniture" id="furniture" aria-labelledby="furniture-h">
-  <div class="wrap">
-    <header class="sec-head">
-      <span class="sec-num mono">04</span>
-      <h2 id="furniture-h">Мебель и техника</h2>
-      <p class="sec-meta mono">Откуда вещи и сколько стоят</p>
-    </header>
-    <p class="room-lead">Цены — из магазинов на дату в строке, со скидкой, если она есть; перед заказом их стоит проверить. Где написано «подбор», модель из проекта не продаётся в России или ещё не выбрана окончательно — мы предложим варианты.</p>
-{furniture_html()}
-  </div>
-</section>
+{FURNITURE_SECTION}
 </main>
 
 <footer class="site-foot">
