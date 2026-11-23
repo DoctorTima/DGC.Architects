@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Wabi-Sabi. Кухня и прихожая | DGC Architects</title>
+<meta name="description" content="Проект интерьера в стиле ваби-саби: 3D-модели кухни и прихожей, выводы электрики, визуализации и мебель.">
+<meta property="og:title" content="Wabi-Sabi. Кухня и прихожая">
+<meta property="og:description" content="3D-модели, выводы электрики, визуализации и мебель. DGC Architects.">
+<meta property="og:image" content="https://doctortima.github.io/DGC.Architects/wabi-sabi/img/og.jpg">
+<meta name="theme-color" content="#EFEEEA">
+<link rel="preload" href="../assets/fonts/dela-gothic-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="wabi.css">
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+<a class="skip" href="#kitchen">К модели кухни</a>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo" href="#top"><span class="logo-dgc">DGC</span><span class="logo-rest">.Architects</span></a>
+    <span class="head-kicker mono">Журнал · проект интерьера</span>
+    <nav class="site-nav" aria-label="Разделы">
+      <a class="nav-link" href="#kitchen">Кухня</a>
+      <a class="nav-link" href="#hall">Прихожая</a>
+      <a class="nav-link" href="#renders">Визуализации</a>
+      <a class="nav-link" href="#furniture">Мебель</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="kicker mono">Мальцево · кухня и прихожая · ноябрь 2026</p>
+      <h1 class="hero-title">WABI-<br>SABI</h1>
+      <p class="hero-lead">Ваби-саби — красота несовершенного: известковая штукатурка с живой фактурой, дерево с открытой текстурой, латунь, которая темнеет со временем. Ничего глянцевого и ничего лишнего.</p>
+      <p class="hero-sub">Здесь обе комнаты в 3D. Их можно покрутить, снять и вернуть потолок и посмотреть, где будут розетки, выключатели и выводы под свет. Ниже — визуализации и мебель со ссылками и ценами.</p>
+      <ul class="hero-index mono">
+        <li><a href="#kitchen"><span>01</span>Кухня · 3D</a></li>
+        <li><a href="#hall"><span>02</span>Прихожая · 3D</a></li>
+        <li><a href="#renders"><span>03</span>Визуализации</a></li>
+        <li><a href="#furniture"><span>04</span>Мебель и техника</a></li>
+      </ul>
+    </div>
+    <figure class="hero-fig">
+      <img src="img/k2.webp" width="1184" height="1600" alt="Кухня: окно, латунный смеситель, барные стулья" fetchpriority="high" decoding="async">
+      <figcaption class="mono">Кухня · вид 2</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<section class="room" id="kitchen" aria-labelledby="kitchen-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-num mono">01</span>
+      <h2 id="kitchen-h">Кухня</h2>
+      <p class="sec-meta mono">2,95 × 4,03 м · потолок 3,2 м</p>
+    </header>
+    <p class="room-lead">Тёплая известковая штукатурка, фасады из шпона дуба, столешница из акрилового камня и пол «ёлочкой». Латунь — смеситель, подвесная система над столешницей и тонкая кромка арки — со временем потемнеет и станет только красивее.</p>
+    <div class="viewer" data-room="kitchen">
+      <div class="toolbar" role="group" aria-label="Управление моделью">
+        <div class="tool-group">
+          <button type="button" class="chip" data-view="iso" aria-pressed="true">3D</button>
+          <button type="button" class="chip" data-view="plan" aria-pressed="false">План</button>
+          <button type="button" class="chip" data-view="v1" aria-pressed="false">Вид 1</button><button type="button" class="chip" data-view="v2" aria-pressed="false">Вид 2</button><button type="button" class="chip" data-view="v3" aria-pressed="false">Вид 3</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" class="chip chip-strong" data-act="ceiling" aria-pressed="false"><span>Вернуть потолок</span></button>
+        </div>
+        <div class="tool-group layers">
+          <button type="button" class="chip chip-layer" data-layer="socket" aria-pressed="true"><i class="pin-dot pin-socket"></i>Розетки</button>
+          <button type="button" class="chip chip-layer" data-layer="switch" aria-pressed="true"><i class="pin-dot pin-switch"></i>Выключатели</button>
+          <button type="button" class="chip chip-layer" data-layer="light" aria-pressed="true"><i class="pin-dot pin-light"></i>Свет</button>
+        </div>
+      </div>
+      <div class="stage">
+        <img class="stage-poster" src="img/kitchen-model.webp" width="1600" height="1000" alt="Модель: кухня без потолка" decoding="async">
+        <div class="stage-gl"></div>
+        <div class="pins" aria-label="Метки выводов"></div>
+        <p class="stage-status mono" aria-live="polite"></p>
+        <button type="button" class="btn stage-start" hidden>Открыть 3D-модель</button>
+        <p class="stage-hint mono">Крутите мышью или пальцем · колесо или два пальца — приблизить</p>
+      </div>
+      <p class="pin-info mono">Нажмите на метку на модели или на строку в таблице</p>
+    </div>
+    <div class="outputs-wrap">
+      <h3 class="tool-label">Выводы электрики · кухня</h3>
+      <table class="outputs">
+        <thead><tr><th>Метка</th><th>Что</th><th>Где</th><th class="num">Высота, мм</th><th class="num">Шт.</th></tr></thead>
+        <tbody><tr data-pin="Р1"><td><span class="pin-dot pin-socket">Р1</span></td><td>Розетка двойная</td><td>стена с окном</td><td class="num">1 080</td><td class="num">2</td></tr><tr data-pin="Р2"><td><span class="pin-dot pin-socket">Р2</span></td><td>Розетка двойная</td><td>барная стойка</td><td class="num">1 210</td><td class="num">2</td></tr><tr data-pin="Р3"><td><span class="pin-dot pin-socket">Р3</span></td><td>Розетка двойная</td><td>стена с мойкой и зеркалом</td><td class="num">1 080</td><td class="num">2</td></tr><tr data-pin="В1"><td><span class="pin-dot pin-switch">В1</span></td><td>Выключатель</td><td>барная стойка</td><td class="num">1 000</td><td class="num">1</td></tr><tr data-pin="В2"><td><span class="pin-dot pin-switch">В2</span></td><td>Выключатель</td><td>стена с мойкой и зеркалом</td><td class="num">1 080</td><td class="num">1</td></tr><tr data-pin="С1"><td><span class="pin-dot pin-light">С1</span></td><td>Вывод под бра</td><td>стена с мойкой и зеркалом</td><td class="num">2 200</td><td class="num">1</td></tr><tr data-pin="С2"><td><span class="pin-dot pin-light">С2</span></td><td>Вывод под бра</td><td>стена с мойкой и зеркалом</td><td class="num">2 200</td><td class="num">1</td></tr><tr data-pin="С3"><td><span class="pin-dot pin-light">С3</span></td><td>Вывод под подвесную систему</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr><tr data-pin="С4"><td><span class="pin-dot pin-light">С4</span></td><td>Вывод под подвесную систему</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr></tbody>
+      </table>
+      <p class="small">Высота — от чистового пола до центра вывода. Данные сняты с 3D-модели; перед монтажом сверяйте с электропроектом.</p>
+    </div>
+  </div>
+</section>
+<section class="room" id="hall" aria-labelledby="hall-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-num mono">02</span>
+      <h2 id="hall-h">Прихожая</h2>
+      <p class="sec-meta mono">2,62 × 3,58 м · потолок 3,2 м</p>
+    </header>
+    <p class="room-lead">Та же штукатурка, что на кухне, светлый тёплый керамогранит на полу, шкаф во всю стену со шпоном дуба. Двери в коридор — скрытого монтажа, в цвет стены. Над аркой — бра, в потолке — четыре точечных светильника и люстра.</p>
+    <div class="viewer" data-room="hall">
+      <div class="toolbar" role="group" aria-label="Управление моделью">
+        <div class="tool-group">
+          <button type="button" class="chip" data-view="iso" aria-pressed="true">3D</button>
+          <button type="button" class="chip" data-view="plan" aria-pressed="false">План</button>
+          <button type="button" class="chip" data-view="v1" aria-pressed="false">Вид 1</button><button type="button" class="chip" data-view="v2" aria-pressed="false">Вид 2</button><button type="button" class="chip" data-view="v3" aria-pressed="false">Вид 3</button><button type="button" class="chip" data-view="v4" aria-pressed="false">Вид 4</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" class="chip chip-strong" data-act="ceiling" aria-pressed="false"><span>Вернуть потолок</span></button>
+        </div>
+        <div class="tool-group layers">
+          <button type="button" class="chip chip-layer" data-layer="socket" aria-pressed="true"><i class="pin-dot pin-socket"></i>Розетки</button>
+          <button type="button" class="chip chip-layer" data-layer="switch" aria-pressed="true"><i class="pin-dot pin-switch"></i>Выключатели</button>
+          <button type="button" class="chip chip-layer" data-layer="light" aria-pressed="true"><i class="pin-dot pin-light"></i>Свет</button>
+        </div>
+      </div>
+      <div class="stage">
+        <img class="stage-poster" src="img/hall-model.webp" width="1600" height="1000" alt="Модель: прихожая без потолка" decoding="async">
+        <div class="stage-gl"></div>
+        <div class="pins" aria-label="Метки выводов"></div>
+        <p class="stage-status mono" aria-live="polite"></p>
+        <button type="button" class="btn stage-start" hidden>Открыть 3D-модель</button>
+        <p class="stage-hint mono">Крутите мышью или пальцем · колесо или два пальца — приблизить</p>
+      </div>
+      <p class="pin-info mono">Нажмите на метку на модели или на строку в таблице</p>
+    </div>
+    <div class="outputs-wrap">
+      <h3 class="tool-label">Выводы электрики · прихожая</h3>
+      <table class="outputs">
+        <thead><tr><th>Метка</th><th>Что</th><th>Где</th><th class="num">Высота, мм</th><th class="num">Шт.</th></tr></thead>
+        <tbody><tr data-pin="Р1"><td><span class="pin-dot pin-socket">Р1</span></td><td>Розетка</td><td>стена с входной дверью</td><td class="num">300</td><td class="num">1</td></tr><tr data-pin="Р2"><td><span class="pin-dot pin-socket">Р2</span></td><td>Розетка двойная</td><td>арка в кухню</td><td class="num">300</td><td class="num">2</td></tr><tr data-pin="В1"><td><span class="pin-dot pin-switch">В1</span></td><td>Блок из двух выключателей</td><td>арка в кухню</td><td class="num">1 000</td><td class="num">2</td></tr><tr data-pin="В2"><td><span class="pin-dot pin-switch">В2</span></td><td>Блок из двух выключателей</td><td>стена с входной дверью</td><td class="num">1 000</td><td class="num">2</td></tr><tr data-pin="С1"><td><span class="pin-dot pin-light">С1</span></td><td>Точечный светильник</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr><tr data-pin="С2"><td><span class="pin-dot pin-light">С2</span></td><td>Точечный светильник</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr><tr data-pin="С3"><td><span class="pin-dot pin-light">С3</span></td><td>Точечный светильник</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr><tr data-pin="С4"><td><span class="pin-dot pin-light">С4</span></td><td>Точечный светильник</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr><tr data-pin="С5"><td><span class="pin-dot pin-light">С5</span></td><td>Вывод под бра над аркой</td><td>арка в кухню</td><td class="num">2 450</td><td class="num">1</td></tr><tr data-pin="С6"><td><span class="pin-dot pin-light">С6</span></td><td>Вывод под люстру</td><td>потолок</td><td class="num">—</td><td class="num">1</td></tr></tbody>
+      </table>
+      <p class="small">Высота — от чистового пола до центра вывода. Данные сняты с 3D-модели; перед монтажом сверяйте с электропроектом.</p>
+    </div>
+  </div>
+</section>
+
+<section class="renders" id="renders" aria-labelledby="renders-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-num mono">03</span>
+      <h2 id="renders-h">Визуализации</h2>
+      <p class="sec-meta mono">7 видов · нажмите, чтобы открыть крупно</p>
+    </header>
+    <div class="gallery">
+<h3 class="furn-h gal-h">Кухня</h3>
+<div class="gal-row"><figure class="shot" style="flex-grow:1.2678;flex-basis:279px">
+  <a href="img/k1.webp" data-full="img/k1.webp" data-cap="Кухня · вид 1 — Стена с мойкой и зеркалом" class="shot-link">
+    <img src="img/k1-900.webp" srcset="img/k1-900.webp 900w, img/k1.webp 1600w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1600" height="1262" alt="Кухня · вид 1: стена с мойкой и зеркалом" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Кухня · вид 1</span> Стена с мойкой и зеркалом</figcaption>
+</figure>
+<figure class="shot" style="flex-grow:0.74;flex-basis:163px">
+  <a href="img/k2.webp" data-full="img/k2.webp" data-cap="Кухня · вид 2 — Окно и угол со смесителем" class="shot-link">
+    <img src="img/k2-900.webp" srcset="img/k2-900.webp 900w, img/k2.webp 1184w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1184" height="1600" alt="Кухня · вид 2: окно и угол со смесителем" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Кухня · вид 2</span> Окно и угол со смесителем</figcaption>
+</figure>
+<figure class="shot" style="flex-grow:1.2618;flex-basis:278px">
+  <a href="img/k3.webp" data-full="img/k3.webp" data-cap="Кухня · вид 3 — Барная стойка" class="shot-link">
+    <img src="img/k3-900.webp" srcset="img/k3-900.webp 900w, img/k3.webp 1600w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1600" height="1268" alt="Кухня · вид 3: барная стойка" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Кухня · вид 3</span> Барная стойка</figcaption>
+</figure></div>
+<h3 class="furn-h gal-h">Прихожая</h3>
+<div class="gal-row"><figure class="shot" style="flex-grow:0.8175;flex-basis:180px">
+  <a href="img/h1.webp" data-full="img/h1.webp" data-cap="Прихожая · вид 1 — Шкаф и скамья" class="shot-link">
+    <img src="img/h1-900.webp" srcset="img/h1-900.webp 900w, img/h1.webp 1308w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1308" height="1600" alt="Прихожая · вид 1: шкаф и скамья" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Прихожая · вид 1</span> Шкаф и скамья</figcaption>
+</figure>
+<figure class="shot" style="flex-grow:0.9337;flex-basis:205px">
+  <a href="img/h2.webp" data-full="img/h2.webp" data-cap="Прихожая · вид 2 — Зеркало и декор" class="shot-link">
+    <img src="img/h2-900.webp" srcset="img/h2-900.webp 900w, img/h2.webp 1494w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1494" height="1600" alt="Прихожая · вид 2: зеркало и декор" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Прихожая · вид 2</span> Зеркало и декор</figcaption>
+</figure>
+<figure class="shot" style="flex-grow:0.81;flex-basis:178px">
+  <a href="img/h3.webp" data-full="img/h3.webp" data-cap="Прихожая · вид 3 — Входная дверь" class="shot-link">
+    <img src="img/h3-900.webp" srcset="img/h3-900.webp 900w, img/h3.webp 1296w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1296" height="1600" alt="Прихожая · вид 3: входная дверь" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Прихожая · вид 3</span> Входная дверь</figcaption>
+</figure>
+<figure class="shot" style="flex-grow:0.9313;flex-basis:205px">
+  <a href="img/h4.webp" data-full="img/h4.webp" data-cap="Прихожая · вид 4 — Арка в кухню" class="shot-link">
+    <img src="img/h4-900.webp" srcset="img/h4-900.webp 900w, img/h4.webp 1490w" sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+         width="1490" height="1600" alt="Прихожая · вид 4: арка в кухню" loading="lazy" decoding="async">
+  </a>
+  <figcaption><span class="mono">Прихожая · вид 4</span> Арка в кухню</figcaption>
+</figure></div>
+    </div>
+  </div>
+</section>
+
+<section class="furniture" id="furniture" aria-labelledby="furniture-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-num mono">04</span>
+      <h2 id="furniture-h">Мебель и техника</h2>
+      <p class="sec-meta mono">Откуда вещи и сколько стоят</p>
+    </header>
+    <p class="room-lead">Цены — из магазинов на дату в строке, со скидкой, если она есть; перед заказом их стоит проверить. Где написано «подбор», модель из проекта не продаётся в России или ещё не выбрана окончательно — мы предложим варианты.</p>
+<div class="furn-room">
+  <h3 class="furn-h">Кухня</h3>
+  <table class="furn">
+    <thead><tr><th>Позиция</th><th>Модель</th><th>Цена</th><th>Где купить</th></tr></thead>
+    <tbody><tr>
+  <td class="f-name">Смеситель</td>
+  <td class="f-model"><span>Omoikiri Kanto-2 Plus-SB LG-BL</span><span class="f-note">латунь, светлое золото, выдвижной излив</span></td>
+  <td class="f-price"><b class="price num">40 688 ₽</b><s class="num">52 188 ₽</s></td>
+  <td class="f-status"><span class="tag tag-ok">в продаже</span><span class="f-st">в наличии, цена на 23.11.2026</span><a href="https://hausdorf.ru/catalog/smesiteli/omoikiri/smesitel-omoikiri-kanto-2-plus-sb-lg-bl.html" target="_blank" rel="noopener">hausdorf.ru<span class="ext" aria-hidden="true">↗</span></a></td>
+</tr><tr>
+  <td class="f-name">Мойка</td>
+  <td class="f-model"><span>Omoikiri Taki 54-U/IF-LG</span><span class="f-note">54 × 44 см, светлое золото; размер сверяем по чертежу</span></td>
+  <td class="f-price"><b class="price num">50 288 ₽</b><s class="num">62 788 ₽</s></td>
+  <td class="f-status"><span class="tag tag-ok">в продаже</span><span class="f-st">цена на 19.10.2026</span><a href="https://hausdorf.ru/catalog/moyki/omoikiri/moyka-omoikiri-taki-54-u-if-lg.html" target="_blank" rel="noopener">hausdorf.ru<span class="ext" aria-hidden="true">↗</span></a></td>
+</tr><tr>
+  <td class="f-name">Духовой шкаф с паром</td>
+  <td class="f-model"><span>Bosch HSG636XS6, Serie 8</span><span class="f-note">встраиваемый</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-off">снят</span><span class="f-st">снят с производства — подберём замену той же серии</span></td>
+</tr><tr>
+  <td class="f-name">Микроволновая печь</td>
+  <td class="f-model"><span>Bosch BFL634GS1, Serie 8</span><span class="f-note">встраиваемая</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-wait">уточняем</span><span class="f-st">сейчас нет в наличии — уточняем</span></td>
+</tr><tr>
+  <td class="f-name">Барные стулья, 2 шт.</td>
+  <td class="f-model"><span>Zendi Julieta</span><span class="f-note">обивка — лён, тёмно-коричневый; чёрный металл</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">бренд из Бразилии, в России не продаётся — подбираем аналог</span></td>
+</tr><tr>
+  <td class="f-name">Подвесная система над столешницей</td>
+  <td class="f-model"><span>латунная штанга, точечные светильники и подвесы</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">модель уточняется</span></td>
+</tr><tr>
+  <td class="f-name">Бра, 2 шт.</td>
+  <td class="f-model"><span>матовые плафоны-шары</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">модель уточняется</span></td>
+</tr><tr>
+  <td class="f-name">Зеркало</td>
+  <td class="f-model"><span>мягкая асимметричная форма, тонкая тёмная рама</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">модель уточняется</span></td>
+</tr><tr>
+  <td class="f-name">Кухонные фасады и шкафы</td>
+  <td class="f-model"><span>шпон дуба</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">изготовление по проекту</span></td>
+</tr></tbody>
+  </table>
+</div>
+<div class="furn-room">
+  <h3 class="furn-h">Прихожая</h3>
+  <table class="furn">
+    <thead><tr><th>Позиция</th><th>Модель</th><th>Цена</th><th>Где купить</th></tr></thead>
+    <tbody><tr>
+  <td class="f-name">Точечные светильники, 4 шт.</td>
+  <td class="f-model"><span>Maytoni Alfa LED DL043-01-15W3K-RD-WB</span><span class="f-note">15 Вт, 3000 K, CRI 90, Ø 85 мм</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-wait">уточняем</span><span class="f-st">цена уточняется у поставщика</span><a href="https://maytoni.de/en/catalog/functional/recessed-luminaires/dl043-01-15w3k-rd-w/" target="_blank" rel="noopener">характеристики, maytoni.de<span class="ext" aria-hidden="true">↗</span></a></td>
+</tr><tr>
+  <td class="f-name">Люстра</td>
+  <td class="f-model"><span>латунь, лепестки-плафоны</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">модель уточняется</span></td>
+</tr><tr>
+  <td class="f-name">Бра над аркой</td>
+  <td class="f-model"><span>матовый шар</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">модель уточняется</span></td>
+</tr><tr>
+  <td class="f-name">Входная дверь</td>
+  <td class="f-model"><span>Aluprof MB-86</span><span class="f-note">белая, со стеклом и латунной ручкой</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-wait">уточняем</span><span class="f-st">цена по запросу у производителя</span></td>
+</tr><tr>
+  <td class="f-name">Шкаф</td>
+  <td class="f-model"><span>шпон дуба, светлые вставки, круглые латунные ручки</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">изготовление по проекту</span></td>
+</tr><tr>
+  <td class="f-name">Скамья</td>
+  <td class="f-model"><span>массив дерева</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">подбираем</span></td>
+</tr><tr>
+  <td class="f-name">Консоль</td>
+  <td class="f-model"><span>тёмное дерево, точёные ножки</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">подбираем</span></td>
+</tr><tr>
+  <td class="f-name">Напольное зеркало</td>
+  <td class="f-model"><span>тонкая чёрная рама, опора</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">подбираем</span></td>
+</tr><tr>
+  <td class="f-name">Декор на стене</td>
+  <td class="f-model"><span>латунь, металл</span></td>
+  <td class="f-price"><span class="price-none">—</span></td>
+  <td class="f-status"><span class="tag tag-pick">подбор</span><span class="f-st">подбираем</span></td>
+</tr></tbody>
+  </table>
+</div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row mono">
+    <span><span class="logo-dgc">DGC</span>.Architects · 2026</span>
+    <span>Страница для заказчика. Не для публикации.</span>
+  </div>
+</footer>
+
+<dialog class="lightbox" aria-label="Визуализация крупно">
+  <button type="button" class="lb-close" aria-label="Закрыть">×</button>
+  <img alt="">
+  <p class="lb-cap mono"></p>
+</dialog>
+
+<script>window.WABI_ROOMS = {"kitchen": {"url": "models/kitchen.glb", "prefix": "KITCHEN", "hx": 1.475, "hz": 2.015, "iso": [1.0, 2.4, 0.45], "views": [{"id": "v1", "label": "Вид 1", "look": "-x", "at": 0.02, "back": -0.45, "fov": 70}, {"id": "v2", "label": "Вид 2", "look": "-z", "at": -0.15, "back": -0.3, "fov": 64}, {"id": "v3", "label": "Вид 3", "look": "+x", "at": -0.12, "back": -0.7, "fov": 64}], "markers": [{"id": "Р1", "type": "socket", "what": "Розетка двойная", "wall": "N", "h": 1080, "p": [-1.09, 1.08, -2.0175], "where": "стена с окном"}, {"id": "Р2", "type": "socket", "what": "Розетка двойная", "wall": "E", "h": 1210, "p": [1.477, 1.21, 0.6645], "where": "барная стойка"}, {"id": "Р3", "type": "socket", "what": "Розетка двойная", "wall": "W", "h": 1080, "p": [-1.457, 1.08, 0.2276], "where": "стена с мойкой и зеркалом"}, {"id": "В1", "type": "switch", "what": "Выключатель", "wall": "E", "h": 1000, "p": [1.4705, 1.0, -1.9514], "where": "барная стойка"}, {"id": "В2", "type": "switch", "what": "Выключатель", "wall": "W", "h": 1080, "p": [-1.4508, 1.08, 0.3476], "where": "стена с мойкой и зеркалом"}, {"id": "С1", "type": "light", "what": "Вывод под бра", "wall": "W", "h": 2200, "p": [-1.475, 2.2, -1.47], "where": "стена с мойкой и зеркалом"}, {"id": "С2", "type": "light", "what": "Вывод под бра", "wall": "W", "h": 2200, "p": [-1.475, 2.2, 1.4418], "where": "стена с мойкой и зеркалом"}, {"id": "С3", "type": "light", "what": "Вывод под подвесную систему", "wall": null, "h": null, "p": [-1.192, 3.2, 1.27], "where": "потолок"}, {"id": "С4", "type": "light", "what": "Вывод под подвесную систему", "wall": null, "h": null, "p": [-1.192, 3.2, -1.29], "where": "потолок"}]}, "hall": {"url": "models/hall.glb", "prefix": "HALL", "hx": 1.31, "hz": 1.79, "iso": [1.0, 2.4, 0.45], "views": [{"id": "v1", "label": "Вид 1", "look": "+z", "at": -0.11, "back": -0.3, "fov": 64}, {"id": "v2", "label": "Вид 2", "look": "+x", "at": -0.23, "back": -0.3, "fov": 64}, {"id": "v3", "label": "Вид 3", "look": "-z", "at": 0.004, "back": -0.7, "fov": 64}, {"id": "v4", "label": "Вид 4", "look": "-x", "at": -0.24, "back": -0.4, "fov": 64}], "markers": [{"id": "Р1", "type": "socket", "what": "Розетка", "wall": "N", "h": 300, "p": [0.1396, 0.3, -1.7925], "where": "стена с входной дверью"}, {"id": "Р2", "type": "socket", "what": "Розетка двойная", "wall": "W", "h": 300, "p": [-1.3125, 0.3, -1.2427], "where": "арка в кухню"}, {"id": "В1", "type": "switch", "what": "Блок из двух выключателей", "wall": "W", "h": 1000, "p": [-1.306, 1.0, -0.8153], "where": "арка в кухню"}, {"id": "В2", "type": "switch", "what": "Блок из двух выключателей", "wall": "N", "h": 1000, "p": [0.1396, 1.0, -1.786], "where": "стена с входной дверью"}, {"id": "С1", "type": "light", "what": "Точечный светильник", "wall": null, "h": null, "p": [0.89, 3.2, 0.7422], "where": "потолок"}, {"id": "С2", "type": "light", "what": "Точечный светильник", "wall": null, "h": null, "p": [-0.92, 3.2, 0.7422], "where": "потолок"}, {"id": "С3", "type": "light", "what": "Точечный светильник", "wall": null, "h": null, "p": [0.89, 3.2, -1.3378], "where": "потолок"}, {"id": "С4", "type": "light", "what": "Точечный светильник", "wall": null, "h": null, "p": [-0.92, 3.2, -1.3378], "where": "потолок"}, {"id": "С5", "type": "light", "what": "Вывод под бра над аркой", "wall": "W", "h": 2450, "p": [-1.31, 2.4534, -0.1653], "where": "арка в кухню"}, {"id": "С6", "type": "light", "what": "Вывод под люстру", "wall": null, "h": null, "p": [-0.0012, 3.2, -0.3007], "where": "потолок"}]}};</script>
+<script src="page.js" defer></script>
+</body>
+</html>

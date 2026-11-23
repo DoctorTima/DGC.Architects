@@ -24,14 +24,14 @@ function filesFor(level) {
   const L = [];
   const add = (p) => { const f = path.join(root, p); if (fs.existsSync(f)) L.push(f); };
   if (level === 'page') {
-    ['js/journal.js', 'js/story-frames.js', 'js/dolina.js'].forEach(add);
+    ['js/journal.js', 'js/story-frames.js', 'js/dolina.js', 'wabi-sabi/page.js'].forEach(add);
   } else {
     const dir = path.join(root, 'js/viewer');
     const rec = d => fs.existsSync(d) && fs.readdirSync(d, {withFileTypes: true}).forEach(e => {
       const p = path.join(d, e.name); if (e.isDirectory()) rec(p); else if (p.endsWith('.js')) L.push(p);
     });
     rec(dir);
-    add('assets/dolina/review/viewer.js'); add('assets/dolina/review/drawings.js');
+    add('assets/dolina/review/viewer.js'); add('assets/dolina/review/drawings.js'); add('wabi-sabi/viewer.js');
   }
   return L;
 }
