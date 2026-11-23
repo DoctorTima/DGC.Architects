@@ -1,0 +1,22 @@
+const data=JSON.parse(document.getElementById('payload').textContent);
+const $=id=>document.getElementById(id);const panel=$('documents');const sel=$('document-choice'),img=$('document-image');
+const names={hall:'Холл',living:'Гостиная-спальня',kitchen:'Кухня и коридор',bath:'Санузел'};
+function selectedMode(mode) {
+ const room=$('room').value;let list=[];
+ if(mode==='before-sheet'||(mode==='drawings'&&document.body.dataset.variant==='before')){list=[[data.drawings[0].file,'АИ-1 · Обмерный план']]}else if(mode==='drawings'){
+ const sheets={all:[4,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17],bath:[17,11,12,13,4,7,8,9],kitchen:[16,4,5,6,7,8,9,11,12],living:[15,4,5,6,7,8,9,10],hall:[14,4,5,6,7,8,9,10]};
+ list=sheets[room].map(i=>{const d=data.drawings[i-1];return [d.file,d.sheet+' · '+d.title]});
+ }else if(mode==='photos'){
+ list=data.views.filter(v=>v.primary&&(room==='all'||v.room===room)).map(v=>[v.file,names[v.room]+' · '+v.title]);
+ }
+ $('compare').hidden=mode!=='compare';sel.hidden=mode==='compare';img.hidden=mode==='compare';
+ $('document-title').textContent=mode==='before-sheet'?'Исходная планировка':mode==='drawings'?'Рабочие чертежи':mode==='photos'?'Визуализации Влада':'Обмер и проект';
+ sel.replaceChildren(...list.map(([f,l])=>new Option(l,f)));
+ const show=()=>{if(sel.value){img.src='../'+sel.value;img.alt=sel.selectedOptions[0].text}};
+ sel.onchange=show;show();
+ if(mode==='compare'){for(const [id,path] of [['before-img','drawings/plan-before.webp'],['after-img','drawings/plan-after.webp']])$(id).src='../'+path;}
+ if(!panel.open)panel.showModal();
+}
+for(const b of document.querySelectorAll('[data-docmode]'))b.onclick=()=>selectedMode(b.dataset.docmode);
+$('close-doc').onclick=()=>panel.close();
+$('wipe').oninput=e=>{$('after-img').style.clipPath='inset(0 '+(100-Number(e.target.value))+'% 0 0)';$('wipe-line').style.left=e.target.value+'%'};

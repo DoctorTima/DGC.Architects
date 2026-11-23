@@ -20,6 +20,8 @@ function show(view, {anchor = null, focus = false} = {}) {
   const changed = current !== view; current = view;
   $$('.view').forEach(v => v.classList.toggle('is-active', v.dataset.view === view));
   const inArticle = view !== 'journal';
+  document.documentElement.dataset.view = view;
+  $$('.toc[data-toc-for]').forEach(o => { o.hidden = inArticle ? o.dataset.tocFor !== view : o !== $('.toc[data-toc-for]'); });
   $('#chapter-now').hidden = !inArticle;
   $('[data-nav-journal]')?.setAttribute('aria-current', inArticle ? 'false' : 'page');
   document.title = inArticle ? `${ROUTES[view]} | Журнал DGC.Architects` : 'Журнал DGC.Architects';
@@ -61,10 +63,10 @@ toc.addEventListener('click', e => { if (e.target.closest('a')) closePanels(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanels(); });
 document.addEventListener('click', e => { if (!e.target.closest('.site-head')) closePanels(); });
 
-const chapters = $$('.chapter[data-chapter]');
-// Continuation blocks and scroll scenes belong to the numbered chapter before them.
-const tracked = $$('.chapter, .scene'); let owner = null;
-tracked.forEach(el => { if (el.matches('.chapter[data-chapter]')) owner = el; el._owner = owner; });
+const chapters = $$('[data-chapter]');
+// Continuation blocks, scroll scenes and story groups belong to the numbered chapter before them.
+const tracked = $$('.chapter, .scene, [data-chapter], .d-track'); let owner = null;
+tracked.forEach(el => { if (el.matches('[data-chapter]')) owner = el; el._owner = owner; });
 function setChapter(sec) {
   chapters.forEach(c => c.classList.toggle('is-current', c === sec));
   $('#chapter-now-no').textContent = sec.dataset.chapter;
@@ -303,8 +305,9 @@ async function viewer() {
   const dlg = $('#lightbox'), img = $('#lb-img'), title = $('#lb-title'), scroller = $('.lb-scroll');
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-zoom]'); if (!b) return;
-    const inner = b.querySelector('img');
-    img.src = b.dataset.zoom; img.alt = inner?.alt || b.textContent.trim(); title.textContent = inner?.alt || b.textContent.trim();
+    const inner = b.querySelector('img'); if (!b.dataset.zoom) return;
+    const label = b.dataset.title || inner?.alt || b.textContent.replace('↗', '').trim();
+    img.src = b.dataset.zoom; img.alt = label; title.textContent = label;
     scroller.classList.add('fit'); dlg.showModal();
   });
   img.addEventListener('click', () => scroller.classList.toggle('fit'));
@@ -400,11 +403,16 @@ async function viewer() {
 (function edges() {
   const root = document.getElementById('edges'); if (!root) return;
   const T = [...root.querySelectorAll('.mq')];
-  const TEXT = [
+  const REC_TEXT = [
     'СОХРАНИТЬ · ПРИСТРОИТЬ · <em>REC.</em> · ОБНОВИТЬ · ',
     'КОНДРАТЮКА 10 · ВТОРАЯ ЖИЗНЬ · 1-510 · ',
     'ПОРТАЛ · ЛИФТ · КРЫША · ДВОР · '];
-  T.forEach((t, i) => { t.innerHTML = TEXT[i].repeat(14); t.drift = i * 300; });
+  let wordsFor = null;   // each article may bring its own words (data-edges, built from journal.json)
+  function words(art) {
+    if (wordsFor === art) return; wordsFor = art;
+    let text = REC_TEXT; try { const own = JSON.parse(art.dataset.edges || 'null'); if (own?.length === 3) text = own; } catch {}
+    T.forEach((t, i) => { t.innerHTML = text[i].repeat(14); t.drift = i * 300; });
+  }
   let lastY = scrollY, raf = 0, geo = {};
   const place = (t, x, size) => { t.hidden = !size; if (size) { t.style.left = x + 'px'; t.style.fontSize = size + 'px'; } };
   function geometry(art) {
@@ -428,7 +436,8 @@ async function viewer() {
     raf = 0;
     const art = document.querySelector('.view-article.is-active');
     if (!art || !geometry(art)) { root.classList.remove('on'); return; }
-    const hero = art.querySelector('.hero'), end = art.querySelector('.art-end');
+    words(art);
+    const hero = art.querySelector('.hero, .d-cover'), end = art.querySelector('.art-end');
     root.classList.toggle('on', hero.getBoundingClientRect().bottom < innerHeight * .6 && (!end || end.getBoundingClientRect().top > innerHeight * .3));
     const dy = scrollY - lastY; lastY = scrollY;
     if (reduced()) return;

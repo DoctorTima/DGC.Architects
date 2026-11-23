@@ -1,0 +1,87 @@
+[
+  {
+    "sheet": "АИ-1",
+    "file": "drawings/AI-01.webp",
+    "title": "Обмерный план"
+  },
+  {
+    "sheet": "АИ-2",
+    "file": "drawings/AI-02.webp",
+    "title": "План сносимых перегородок"
+  },
+  {
+    "sheet": "АИ-3",
+    "file": "drawings/AI-03.webp",
+    "title": "План возводимых перегородок"
+  },
+  {
+    "sheet": "АИ-4",
+    "file": "drawings/AI-04.webp",
+    "title": "План расстановки мебели"
+  },
+  {
+    "sheet": "АИ-5",
+    "file": "drawings/AI-05.webp",
+    "title": "План привязки осветительных приборов"
+  },
+  {
+    "sheet": "АИ-6",
+    "file": "drawings/AI-06.webp",
+    "title": "План привязки выключателей"
+  },
+  {
+    "sheet": "АИ-7",
+    "file": "drawings/AI-07.webp",
+    "title": "План привязки розеток и эл.выводов"
+  },
+  {
+    "sheet": "АИ-8",
+    "file": "drawings/AI-08.webp",
+    "title": "План раскладки пола"
+  },
+  {
+    "sheet": "АИ-9",
+    "file": "drawings/AI-09.webp",
+    "title": "План потолка"
+  },
+  {
+    "sheet": "АИ-10",
+    "file": "drawings/AI-10.webp",
+    "title": "План отделки стен"
+  },
+  {
+    "sheet": "АИ-11",
+    "file": "drawings/AI-11.webp",
+    "title": "План привязки сантехнических приборов"
+  },
+  {
+    "sheet": "АИ-12",
+    "file": "drawings/AI-12.webp",
+    "title": "Развертки кухни и гостевого санузла с привязкой сантехники"
+  },
+  {
+    "sheet": "АИ-13",
+    "file": "drawings/AI-13.webp",
+    "title": "Технические карты сантехнических приборов"
+  },
+  {
+    "sheet": "АИ-14",
+    "file": "drawings/AI-14.webp",
+    "title": "Развертки по стенам коридора"
+  },
+  {
+    "sheet": "АИ-15",
+    "file": "drawings/AI-15.webp",
+    "title": "Развертки по стенам спальни"
+  },
+  {
+    "sheet": "АИ-16",
+    "file": "drawings/AI-16.webp",
+    "title": "Развертки по стенам кухни-коридора"
+  },
+  {
+    "sheet": "АИ-17",
+    "file": "drawings/AI-17.webp",
+    "title": "Развертки по стенам санузла"
+  }
+]

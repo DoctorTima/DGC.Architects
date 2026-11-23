@@ -1,0 +1,17 @@
+{
+ "after": {
+  "parts": [
+   "dolina-after.0.txt",
+   "dolina-after.1.txt"
+  ],
+  "bytes": 8910300,
+  "encoded": 11880400
+ },
+ "before": {
+  "parts": [
+   "dolina-before.0.txt"
+  ],
+  "bytes": 1502572,
+  "encoded": 2003432
+ }
+}

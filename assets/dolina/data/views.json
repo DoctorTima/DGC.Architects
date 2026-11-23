@@ -1,0 +1,162 @@
+[
+  {
+    "file": "views/hall-01.webp",
+    "source": "3о.jpg",
+    "source_folder": "Холл",
+    "room": "hall",
+    "title": "Зеркало в конце холла",
+    "source_camera": "hall_camera Сцена №4",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 18
+  },
+  {
+    "file": "views/hall-02.webp",
+    "source": "2о.jpg",
+    "source_folder": "Холл",
+    "room": "hall",
+    "title": "Шкаф напротив камеры",
+    "source_camera": "hall_camera Сцена №3",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": false
+  },
+  {
+    "file": "views/hall-03.webp",
+    "source": "1о.jpg",
+    "source_folder": "Холл",
+    "room": "hall",
+    "title": "Банкетка и арочный проём",
+    "source_camera": "hall_camera Сцена №2",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": false
+  },
+  {
+    "file": "views/bath-01.webp",
+    "source": "2.2о.jpg",
+    "source_folder": "Санузел",
+    "room": "bath",
+    "title": "Душевая и край умывальника",
+    "source_camera": "bath_camera Сцена №4",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 21
+  },
+  {
+    "file": "views/bath-02.webp",
+    "source": "1.1о.jpg",
+    "source_folder": "Санузел",
+    "room": "bath",
+    "title": "Фронтальный вид на сантехнику",
+    "source_camera": "bath_camera Сцена №2",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 21
+  },
+  {
+    "file": "views/bath-03.webp",
+    "source": "3о.jpg",
+    "source_folder": "Санузел",
+    "room": "bath",
+    "title": "Вариант вида на душевую",
+    "source_camera": "bath_camera Сцена №4",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": false
+  },
+  {
+    "file": "views/bath-04.webp",
+    "source": "2о.jpg",
+    "source_folder": "Санузел",
+    "room": "bath",
+    "title": "Вид на вход",
+    "source_camera": "bath_camera Сцена №3",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 21
+  },
+  {
+    "file": "views/bath-05.webp",
+    "source": "1о.jpg",
+    "source_folder": "Санузел",
+    "room": "bath",
+    "title": "Вариант фронтального вида",
+    "source_camera": "bath_camera Сцена №2",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": false
+  },
+  {
+    "file": "views/kitchen-01.webp",
+    "source": "4.2о.jpg",
+    "source_folder": "Кухня-гостиная",
+    "room": "kitchen",
+    "title": "Кухонный фронт, каменный фартук",
+    "source_camera": null,
+    "camera_match": "Точная камера не установлена",
+    "primary": true,
+    "album_sheet": 20
+  },
+  {
+    "file": "views/kitchen-02.webp",
+    "source": "5о.jpg",
+    "source_folder": "Кухня-гостиная",
+    "room": "kitchen",
+    "title": "Обеденный стол и холодильник",
+    "source_camera": null,
+    "camera_match": "Точная камера не установлена",
+    "primary": true,
+    "album_sheet": 20
+  },
+  {
+    "file": "views/kitchen-03.webp",
+    "source": "4о.jpg",
+    "source_folder": "Кухня-гостиная",
+    "room": "kitchen",
+    "title": "Предыдущий вариант кухонного фронта",
+    "source_camera": null,
+    "camera_match": "Точная камера не установлена",
+    "primary": false
+  },
+  {
+    "file": "views/kitchen-04.webp",
+    "source": "2о.jpg",
+    "source_folder": "Кухня-гостиная",
+    "room": "living",
+    "title": "Рабочий стол и телевизор",
+    "source_camera": "hall_camera Сцена №6",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 19
+  },
+  {
+    "file": "views/kitchen-05.webp",
+    "source": "1о.jpg",
+    "source_folder": "Кухня-гостиная",
+    "room": "living",
+    "title": "Арка у кровати",
+    "source_camera": "hall_camera Сцена №5",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 19
+  },
+  {
+    "file": "views/kitchen-06.webp",
+    "source": "3о.jpg",
+    "source_folder": "Кухня-гостиная",
+    "room": "living",
+    "title": "Вид на изголовье",
+    "source_camera": "hall_camera Сцена №7",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 19
+  },
+  {
+    "file": "views/album-18-1.webp",
+    "source": "Альбом, АИ-18",
+    "source_folder": "ПДФ",
+    "room": "hall",
+    "title": "Банкетка и арочный проём",
+    "source_camera": "hall_camera Сцена №2",
+    "camera_match": "Сходное направление; кадрирование рендера отличается",
+    "primary": true,
+    "album_sheet": 18
+  }
+]

@@ -602,6 +602,19 @@ html:not(.js) .tl-card { margin-bottom: 16px; }
 .j-chapters .num { font: 400 12.5px var(--f-mono); color: var(--ink-3); }
 .j-chapters a:hover .num { color: var(--accent); }
 .j-about { border-bottom: 0; }
+/* more materials on the journal home (each card carries its own --accent) */
+.j-more { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); padding: 48px 0; border-bottom: 1px solid var(--rule); }
+.j-more > .block-title { grid-column: 1 / 4; font: 400 13px var(--f-mono); text-transform: uppercase; color: var(--ink-3); }
+.j-card { grid-column: 4 / 13; display: grid; grid-template-columns: repeat(9, 1fr); gap: 20px var(--gap); align-items: start; }
+.j-card-media { grid-column: 1 / 6; display: block; background: var(--stage); }
+.j-card-media img { width: 100%; }
+.j-card-text { grid-column: 6 / 10; display: grid; gap: 14px; justify-items: start; }
+.j-card-title { margin: 0; }
+.j-card-title a { text-decoration: none; }
+.j-card-title .rec-mark { display: block; font-size: clamp(52px, 5.6vw, 92px); line-height: .95; margin-left: -.03em; }
+.j-card-rest { display: block; margin-top: 8px; font: 300 clamp(22px, 2vw, 30px)/1.15 var(--f-sans); letter-spacing: -.025em; }
+@media (max-width: 1023px) { .j-more > .block-title, .j-card { grid-column: 1 / -1; } }
+@media (max-width: 767px) { .j-card { grid-template-columns: 1fr; } .j-card-media, .j-card-text { grid-column: 1 / -1; } .j-card-title .rec-mark { font-size: 17vw; } }
 .j-about p { grid-column: 4 / 11; margin: 0 0 12px; max-width: 64ch; }
 @media (max-width: 1023px) {
   .j-mast, .j-lead-text, .j-contents, .j-about { grid-template-columns: repeat(8, 1fr); }

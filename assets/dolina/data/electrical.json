@@ -1,0 +1,1076 @@
+{
+  "units": "mm",
+  "axes": "Blender Z up. xyz стены, центр групп, от чистого пола. Глифы на пару миллиметров перед отделкой. Группы света по АИ-6. Приборы и схемы АИ-5, 6 имеют приоритет при чтении.",
+  "points": [
+    {
+      "id": "outlet-01",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        137,
+        5340,
+        300
+      ],
+      "normal_into_room": "+X",
+      "context": "Прикроватная тумба у окна",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "Центр блока. Состав блока показан на развёртке.",
+      "frame": "E01"
+    },
+    {
+      "id": "outlet-02",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        137,
+        5340,
+        600
+      ],
+      "normal_into_room": "+X",
+      "context": "Прикроватная тумба у окна",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "Центр блока. Состав блока показан на развёртке.",
+      "frame": "E02"
+    },
+    {
+      "id": "outlet-03",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        137,
+        3100,
+        300
+      ],
+      "normal_into_room": "+X",
+      "context": "Прикроватная тумба у арки",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "Центр блока. Состав блока показан на развёртке.",
+      "frame": "E03"
+    },
+    {
+      "id": "outlet-04",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        137,
+        3100,
+        600
+      ],
+      "normal_into_room": "+X",
+      "context": "Прикроватная тумба у арки",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "Центр блока. Состав блока показан на развёртке.",
+      "frame": "E04"
+    },
+    {
+      "id": "switch-05",
+      "room": "living",
+      "kind": "switch",
+      "xyz_mm": [
+        137,
+        5340,
+        600
+      ],
+      "normal_into_room": "+X",
+      "context": "У изголовья со стороны окна",
+      "sheet": "АИ-6, 15",
+      "groups": [
+        3,
+        4
+      ],
+      "note": "",
+      "frame": "E02"
+    },
+    {
+      "id": "outlet-06",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        1981,
+        2846,
+        300
+      ],
+      "normal_into_room": "+Y",
+      "context": "Стена с аркой, 200 мм от проёма",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "",
+      "frame": "E05"
+    },
+    {
+      "id": "switch-07",
+      "room": "living",
+      "kind": "switch",
+      "xyz_mm": [
+        1981,
+        2846,
+        1000
+      ],
+      "normal_into_room": "+Y",
+      "context": "Стена с аркой, клавиши спальни",
+      "sheet": "АИ-6, 15",
+      "groups": [
+        3,
+        4
+      ],
+      "note": "",
+      "frame": "E06"
+    },
+    {
+      "id": "switch-08",
+      "room": "living",
+      "kind": "switch",
+      "xyz_mm": [
+        1981,
+        2846,
+        1000
+      ],
+      "normal_into_room": "+Y",
+      "context": "Стена с аркой, клавиши холла",
+      "sheet": "АИ-6, 15",
+      "groups": [
+        1,
+        2
+      ],
+      "note": "Соседний механизм той же группы. Объединить в один маркер.",
+      "frame": "E06"
+    },
+    {
+      "id": "outlet-09",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        3780,
+        4745,
+        300
+      ],
+      "normal_into_room": "-X",
+      "context": "Блок на стене рабочего стола и ТВ, ось 850 мм от угла",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "Привязка дана к центру всей рамки.",
+      "frame": "E07"
+    },
+    {
+      "id": "outlet-10",
+      "room": "living",
+      "kind": "outlet",
+      "xyz_mm": [
+        3780,
+        4745,
+        1800
+      ],
+      "normal_into_room": "-X",
+      "context": "Блок на стене рабочего стола и ТВ, ось 850 мм от угла",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "note": "Привязка дана к центру всей рамки.",
+      "frame": "E08"
+    },
+    {
+      "id": "switch-11",
+      "room": "hall",
+      "kind": "switch",
+      "xyz_mm": [
+        135,
+        1350,
+        1000
+      ],
+      "normal_into_room": "+X",
+      "context": "У входной двери",
+      "sheet": "АИ-6, 14",
+      "groups": [
+        1,
+        2
+      ],
+      "note": "",
+      "frame": "E09"
+    },
+    {
+      "id": "outlet-12",
+      "room": "hall",
+      "kind": "outlet",
+      "xyz_mm": [
+        135,
+        1350,
+        300
+      ],
+      "normal_into_room": "+X",
+      "context": "У входной двери",
+      "sheet": "АИ-7, 14",
+      "groups": [],
+      "note": "",
+      "frame": "E10"
+    },
+    {
+      "id": "outlet-13",
+      "room": "kitchen",
+      "kind": "outlet",
+      "xyz_mm": [
+        3880,
+        4200,
+        300
+      ],
+      "normal_into_room": "+X",
+      "context": "Торец стены у прохода в гостиную",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [],
+      "note": "",
+      "frame": "E11"
+    },
+    {
+      "id": "switch-14",
+      "room": "kitchen",
+      "kind": "switch",
+      "xyz_mm": [
+        3880,
+        4200,
+        1000
+      ],
+      "normal_into_room": "+X",
+      "context": "Торец стены у прохода в гостиную",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [
+        5,
+        6
+      ],
+      "note": "",
+      "frame": "E12"
+    },
+    {
+      "id": "outlet-15",
+      "room": "kitchen",
+      "kind": "outlet",
+      "xyz_mm": [
+        6830,
+        4400,
+        1100
+      ],
+      "normal_into_room": "-X",
+      "context": "Рабочая поверхность, блок у окна",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [],
+      "note": "Розетки и выключатель в общей рамке.",
+      "frame": "E13"
+    },
+    {
+      "id": "switch-16",
+      "room": "kitchen",
+      "kind": "switch",
+      "xyz_mm": [
+        6830,
+        4400,
+        1100
+      ],
+      "normal_into_room": "-X",
+      "context": "Рабочая поверхность, блок у окна",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [
+        7
+      ],
+      "note": "Розетки и выключатель в общей рамке.",
+      "frame": "E13"
+    },
+    {
+      "id": "outlet-17",
+      "room": "kitchen",
+      "kind": "outlet",
+      "xyz_mm": [
+        5875,
+        2390,
+        300
+      ],
+      "normal_into_room": "+Y",
+      "context": "Розетка холодильника",
+      "sheet": "АИ-7, 16",
+      "groups": [],
+      "note": "",
+      "frame": "E14"
+    },
+    {
+      "id": "outlet-18",
+      "room": "kitchen",
+      "kind": "outlet",
+      "xyz_mm": [
+        6530,
+        2390,
+        1100
+      ],
+      "normal_into_room": "+Y",
+      "context": "Над кухонной столешницей",
+      "sheet": "АИ-7, 16",
+      "groups": [],
+      "note": "",
+      "frame": "E15"
+    },
+    {
+      "id": "feed-19",
+      "room": "kitchen",
+      "kind": "feed",
+      "xyz_mm": [
+        6830,
+        3245,
+        2000
+      ],
+      "normal_into_room": "-X",
+      "context": "Вывод для вытяжки",
+      "sheet": "АИ-7, 16",
+      "groups": [],
+      "note": ""
+    },
+    {
+      "id": "feed-20",
+      "room": "kitchen",
+      "kind": "feed",
+      "xyz_mm": [
+        6830,
+        2590,
+        1800
+      ],
+      "normal_into_room": "-X",
+      "context": "Подсветка фартука",
+      "sheet": "АИ-5, 6, 16",
+      "groups": [
+        7
+      ],
+      "note": ""
+    },
+    {
+      "id": "feed-21",
+      "room": "kitchen",
+      "kind": "feed",
+      "xyz_mm": [
+        3880,
+        2050,
+        2000
+      ],
+      "normal_into_room": "+X",
+      "context": "Подсветка картины",
+      "sheet": "АИ-5, 6, 16",
+      "groups": [
+        6
+      ],
+      "note": ""
+    },
+    {
+      "id": "outlet-22",
+      "room": "kitchen",
+      "kind": "outlet",
+      "xyz_mm": [
+        4994,
+        2169,
+        300
+      ],
+      "normal_into_room": "-X",
+      "context": "Со стороны коридора, 200 мм от проёма санузла",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [],
+      "note": "XY привязано к собранному проёму.",
+      "frame": "E16"
+    },
+    {
+      "id": "switch-23",
+      "room": "kitchen",
+      "kind": "switch",
+      "xyz_mm": [
+        4994,
+        2169,
+        1000
+      ],
+      "normal_into_room": "-X",
+      "context": "Со стороны коридора, 200 мм от проёма санузла",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [
+        8,
+        9
+      ],
+      "note": "XY привязано к собранному проёму.",
+      "frame": "E17"
+    },
+    {
+      "id": "outlet-24",
+      "room": "bath",
+      "kind": "outlet",
+      "xyz_mm": [
+        6529,
+        1970,
+        1400
+      ],
+      "normal_into_room": "-X",
+      "context": "Ось блока над инсталляцией",
+      "sheet": "АИ-7, 17",
+      "groups": [],
+      "note": "",
+      "frame": "E18"
+    },
+    {
+      "id": "outlet-25",
+      "room": "bath",
+      "kind": "outlet",
+      "xyz_mm": [
+        6529,
+        1320,
+        100
+      ],
+      "normal_into_room": "-X",
+      "context": "За стиральной машиной",
+      "sheet": "АИ-7, 17",
+      "groups": [],
+      "note": "",
+      "frame": "E19"
+    },
+    {
+      "id": "feed-26",
+      "room": "bath",
+      "kind": "feed",
+      "xyz_mm": [
+        6529,
+        1320,
+        1800
+      ],
+      "normal_into_room": "-X",
+      "context": "Подсветка зеркала над умывальником",
+      "sheet": "АИ-5, 6, 17",
+      "groups": [
+        9
+      ],
+      "note": ""
+    },
+    {
+      "id": "feed-27",
+      "room": "bath",
+      "kind": "feed",
+      "xyz_mm": [
+        5395,
+        2270,
+        700
+      ],
+      "normal_into_room": "-Y",
+      "context": "Полотенцесушитель",
+      "sheet": "АИ-5, 7, 17",
+      "groups": [],
+      "note": "Рабочая версия по АИ-7 и 17. На АИ-5 указаны 400 мм и отступ 250 мм, на АИ-17 высота 700 мм и отступ 300 мм. Согласовать."
+    },
+    {
+      "id": "feed-28",
+      "room": "hall",
+      "kind": "feed",
+      "xyz_mm": [
+        2581,
+        2746,
+        2400
+      ],
+      "normal_into_room": "-Y",
+      "context": "Бра по оси арки",
+      "sheet": "АИ-5, 6, 14, 15",
+      "groups": [
+        2
+      ],
+      "note": ""
+    },
+    {
+      "id": "feed-29",
+      "room": "living",
+      "kind": "feed",
+      "xyz_mm": [
+        2581,
+        2846,
+        2400
+      ],
+      "normal_into_room": "+Y",
+      "context": "Бра по оси арки",
+      "sheet": "АИ-5, 6, 14, 15",
+      "groups": [
+        2
+      ],
+      "note": ""
+    }
+  ],
+  "frames": [
+    {
+      "id": "E01",
+      "point_ids": [
+        "outlet-01"
+      ],
+      "room": "living",
+      "context": "Прикроватная тумба у окна",
+      "xyz_mm": [
+        137,
+        5340,
+        300
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power",
+        "power"
+      ],
+      "frame_article": 89393860,
+      "frame_mm": [
+        151,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E02",
+      "point_ids": [
+        "outlet-02",
+        "switch-05"
+      ],
+      "room": "living",
+      "context": "Прикроватная тумба у окна",
+      "xyz_mm": [
+        137,
+        5340,
+        600
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-7, 15",
+      "groups": [
+        3,
+        4
+      ],
+      "vertical": false,
+      "positions": [
+        "pass",
+        "power"
+      ],
+      "frame_article": 89393860,
+      "frame_mm": [
+        151,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E03",
+      "point_ids": [
+        "outlet-03"
+      ],
+      "room": "living",
+      "context": "Прикроватная тумба у арки",
+      "xyz_mm": [
+        137,
+        3100,
+        300
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power",
+        "power"
+      ],
+      "frame_article": 89393860,
+      "frame_mm": [
+        151,
+        80,
+        10
+      ],
+      "note": "По АИ-7 один из постов связан с выключателем."
+    },
+    {
+      "id": "E04",
+      "point_ids": [
+        "outlet-04"
+      ],
+      "room": "living",
+      "context": "Прикроватная тумба у арки",
+      "xyz_mm": [
+        137,
+        3100,
+        600
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E05",
+      "point_ids": [
+        "outlet-06"
+      ],
+      "room": "living",
+      "context": "Стена с аркой, 200 мм от проёма",
+      "xyz_mm": [
+        1981,
+        2846,
+        300
+      ],
+      "normal_into_room": "+Y",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E06",
+      "point_ids": [
+        "switch-07",
+        "switch-08"
+      ],
+      "room": "living",
+      "context": "Стена с аркой, клавиши спальни",
+      "xyz_mm": [
+        1981,
+        2846,
+        1000
+      ],
+      "normal_into_room": "+Y",
+      "sheet": "АИ-6, 15",
+      "groups": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "vertical": true,
+      "positions": [
+        "pass",
+        "pass"
+      ],
+      "frame_article": 89393860,
+      "frame_mm": [
+        151,
+        80,
+        10
+      ],
+      "note": "Вертикальная рамка по АИ-15. Высота 1000 мм дана для блока."
+    },
+    {
+      "id": "E07",
+      "point_ids": [
+        "outlet-09"
+      ],
+      "room": "living",
+      "context": "Блок на стене рабочего стола и ТВ, ось 850 мм от угла",
+      "xyz_mm": [
+        3780,
+        4745,
+        300
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power",
+        "power",
+        "power",
+        "power"
+      ],
+      "frame_article": 89393862,
+      "frame_mm": [
+        294,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E08",
+      "point_ids": [
+        "outlet-10"
+      ],
+      "room": "living",
+      "context": "Блок на стене рабочего стола и ТВ, ось 850 мм от угла",
+      "xyz_mm": [
+        3780,
+        4745,
+        1800
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-7, 15",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "net",
+        "tv",
+        "power",
+        "power"
+      ],
+      "frame_article": 89393862,
+      "frame_mm": [
+        294,
+        80,
+        10
+      ],
+      "note": "АИ-7 отмечает интернет, АИ-15 показывает четыре поста. Положение ТВ-поста и порядок механизмов внутри рамки — редакционная раскладка по комплектации."
+    },
+    {
+      "id": "E09",
+      "point_ids": [
+        "switch-11"
+      ],
+      "room": "hall",
+      "context": "У входной двери",
+      "xyz_mm": [
+        135,
+        1350,
+        1000
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-6, 14",
+      "groups": [
+        1,
+        2
+      ],
+      "vertical": false,
+      "positions": [
+        "pass"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E10",
+      "point_ids": [
+        "outlet-12"
+      ],
+      "room": "hall",
+      "context": "У входной двери",
+      "xyz_mm": [
+        135,
+        1350,
+        300
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-7, 14",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E11",
+      "point_ids": [
+        "outlet-13"
+      ],
+      "room": "kitchen",
+      "context": "Торец стены у прохода в гостиную",
+      "xyz_mm": [
+        3880,
+        4200,
+        300
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E12",
+      "point_ids": [
+        "switch-14"
+      ],
+      "room": "kitchen",
+      "context": "Торец стены у прохода в гостиную",
+      "xyz_mm": [
+        3880,
+        4200,
+        1000
+      ],
+      "normal_into_room": "+X",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [
+        5,
+        6
+      ],
+      "vertical": false,
+      "positions": [
+        "two"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E13",
+      "point_ids": [
+        "outlet-15",
+        "switch-16"
+      ],
+      "room": "kitchen",
+      "context": "Рабочая поверхность, блок у окна",
+      "xyz_mm": [
+        6830,
+        4400,
+        1100
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [
+        7
+      ],
+      "vertical": false,
+      "positions": [
+        "power",
+        "power",
+        "one"
+      ],
+      "frame_article": 89393861,
+      "frame_mm": [
+        223,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E14",
+      "point_ids": [
+        "outlet-17"
+      ],
+      "room": "kitchen",
+      "context": "Розетка холодильника",
+      "xyz_mm": [
+        5875,
+        2390,
+        300
+      ],
+      "normal_into_room": "+Y",
+      "sheet": "АИ-7, 16",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E15",
+      "point_ids": [
+        "outlet-18"
+      ],
+      "room": "kitchen",
+      "context": "Над кухонной столешницей",
+      "xyz_mm": [
+        6530,
+        2390,
+        1100
+      ],
+      "normal_into_room": "+Y",
+      "sheet": "АИ-7, 16",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E16",
+      "point_ids": [
+        "outlet-22"
+      ],
+      "room": "kitchen",
+      "context": "Со стороны коридора, 200 мм от проёма санузла",
+      "xyz_mm": [
+        4994,
+        2169,
+        300
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E17",
+      "point_ids": [
+        "switch-23"
+      ],
+      "room": "kitchen",
+      "context": "Со стороны коридора, 200 мм от проёма санузла",
+      "xyz_mm": [
+        4994,
+        2169,
+        1000
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-6, 7, 16",
+      "groups": [
+        8,
+        9
+      ],
+      "vertical": false,
+      "positions": [
+        "two"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E18",
+      "point_ids": [
+        "outlet-24"
+      ],
+      "room": "bath",
+      "context": "Ось блока над инсталляцией",
+      "xyz_mm": [
+        6529,
+        1970,
+        1400
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-7, 17",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "power",
+        "power"
+      ],
+      "frame_article": 89393860,
+      "frame_mm": [
+        151,
+        80,
+        10
+      ],
+      "note": ""
+    },
+    {
+      "id": "E19",
+      "point_ids": [
+        "outlet-25"
+      ],
+      "room": "bath",
+      "context": "За стиральной машиной",
+      "xyz_mm": [
+        6529,
+        1320,
+        100
+      ],
+      "normal_into_room": "-X",
+      "sheet": "АИ-7, 17",
+      "groups": [],
+      "vertical": false,
+      "positions": [
+        "cover"
+      ],
+      "frame_article": 89393859,
+      "frame_mm": [
+        80,
+        80,
+        10
+      ],
+      "note": "Место розетки за машиной подтверждено АИ-17. Размещение исполнения с крышкой здесь принято по общей смете и требует подтверждения."
+    }
+  ],
+  "mechanisms": {
+    "power": {
+      "article": 89393854,
+      "label": "Розетка с заземлением"
+    },
+    "cover": {
+      "article": 89393855,
+      "label": "Розетка с крышкой"
+    },
+    "net": {
+      "article": 89393857,
+      "label": "Компьютерная розетка RJ45"
+    },
+    "tv": {
+      "article": 89393858,
+      "label": "Телевизионная розетка"
+    },
+    "one": {
+      "article": 89393864,
+      "label": "Одноклавишный выключатель"
+    },
+    "two": {
+      "article": 89393865,
+      "label": "Двухклавишный выключатель"
+    },
+    "pass": {
+      "article": 89393868,
+      "label": "Двухклавишный проходной выключатель"
+    }
+  },
+  "series": "Mirkl Grace · белый матовый",
+  "catalog": "https://www.c-o-k.ru/library/catalogs/rosterm/37543/137090.pdf",
+  "model_status": "Редакционные 3D-модели лицевых частей, габариты рамок по каталогу. Данные общих закупок сверены с XLSX."
+}
