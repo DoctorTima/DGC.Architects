@@ -27,15 +27,20 @@ GPU ladder 25.11 (RTX 3060 laptop, 400x500, vs reference 0.003): threshold 0.01 
 RMSE 0.38%; 0.02 - 18 s, RMSE 0.53%; 0.03 - 9 s, 0.60%; 0.05 - 5 s, 0.76%. Crops at 2x
 looked identical, so final_gpu uses 0.02; final_hero keeps 0.01 for print.
 2K (1600x2000) on that card: draft_gpu 127 s, threshold 0.01 final 23.5 min.
+
+REAL SCENE 25.11 (Maltsevo kitchen 1_2, 2400 px, ~3000 objects, 24 lights, dark: +2 stops
+in post): old v7 settings with a 330 s limit - 268 s; this preset WITHOUT a time limit and with
+reflective caustics on - over 26 min, stopped. Test-room timings do not transfer to heavy
+scenes, so draft_gpu / final_gpu now carry time limits (120 s / 330 s) like the v7 pipeline.
 """
 import bpy
 
 PRESETS = {
     "draft_cloud": dict(threshold=0.05, samples=256, time_limit=0, clamp_indirect=0.0,
                         guiding=False, oidn_quality="BALANCED", device="CPU"),
-    "draft_gpu":   dict(threshold=0.03, samples=512, time_limit=0, clamp_indirect=0.0,
+    "draft_gpu":   dict(threshold=0.03, samples=512, time_limit=120, clamp_indirect=0.0,
                         guiding=False, oidn_quality="HIGH", device="GPU"),
-    "final_gpu":   dict(threshold=0.02, samples=1024, time_limit=0, clamp_indirect=0.0,
+    "final_gpu":   dict(threshold=0.02, samples=1024, time_limit=330, clamp_indirect=0.0,
                         guiding=False, oidn_quality="HIGH", device="GPU"),
     "final_hero":  dict(threshold=0.01, samples=4096, time_limit=0, clamp_indirect=0.0,
                         guiding=False, oidn_quality="HIGH", device="GPU"),
