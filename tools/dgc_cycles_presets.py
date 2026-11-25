@@ -9,7 +9,8 @@ Usage inside Blender (Text Editor or MCP):
 Presets (reasoning and test results: claude/render_settings_pro.md in the DGC.Architects project):
     draft_cloud  - Claude cloud CPU draft
     draft_gpu    - quick check on an RTX card (Timofey's PC / rented GPU)
-    final_gpu    - client final on an RTX card
+    final_gpu    - client final on an RTX card (threshold 0.02: same look as 0.01, ~4x faster)
+    final_hero   - print / large-format hero frame on an RTX card (threshold 0.01)
     final_cpu    - client final on a CPU farm / cloud CPU
 
 Every preset: Cycles, light tree, adaptive sampling, OIDN (albedo+normal, accurate),
@@ -21,6 +22,11 @@ Test 25.11.2026 (sunlit room, glossy oak floor, glazed window): the usual advice
 sun patch on the floor and sky through the glass was cut). Fix = reflective caustics on,
 clamp off, and window glass via window_glass() below. Path guiding and portals gave no
 gain for a big window with direct sun (guiding +20% time); use them for small openings.
+
+GPU ladder 25.11 (RTX 3060 laptop, 400x500, vs reference 0.003): threshold 0.01 - 69 s,
+RMSE 0.38%; 0.02 - 18 s, RMSE 0.53%; 0.03 - 9 s, 0.60%; 0.05 - 5 s, 0.76%. Crops at 2x
+looked identical, so final_gpu uses 0.02; final_hero keeps 0.01 for print.
+2K (1600x2000) on that card: draft_gpu 127 s, threshold 0.01 final 23.5 min.
 """
 import bpy
 
@@ -29,9 +35,11 @@ PRESETS = {
                         guiding=False, oidn_quality="BALANCED", device="CPU"),
     "draft_gpu":   dict(threshold=0.03, samples=512, time_limit=0, clamp_indirect=0.0,
                         guiding=False, oidn_quality="HIGH", device="GPU"),
-    "final_gpu":   dict(threshold=0.01, samples=4096, time_limit=0, clamp_indirect=0.0,
+    "final_gpu":   dict(threshold=0.02, samples=1024, time_limit=0, clamp_indirect=0.0,
                         guiding=False, oidn_quality="HIGH", device="GPU"),
-    "final_cpu":   dict(threshold=0.01, samples=4096, time_limit=0, clamp_indirect=0.0,
+    "final_hero":  dict(threshold=0.01, samples=4096, time_limit=0, clamp_indirect=0.0,
+                        guiding=False, oidn_quality="HIGH", device="GPU"),
+    "final_cpu":   dict(threshold=0.02, samples=1024, time_limit=0, clamp_indirect=0.0,
                         guiding=False, oidn_quality="HIGH", device="CPU"),
 }
 
