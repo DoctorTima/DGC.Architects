@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer-core';
+const browser = await puppeteer.launch({ executablePath: '/usr/bin/google-chrome', headless: 'new', args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--enable-webgl'] });
+const page = await browser.newPage();
+await page.setViewport({ width: 800, height: 600 });
+await page.goto('http://127.0.0.1:8731/maltsevo-3d/?shot=1', { waitUntil: 'load', timeout: 120000 });
+await page.waitForFunction(() => window.__app && window.__app.state.ready, { timeout: 180000 });
+const t = Date.now();
+const links = await page.evaluate(() => window.__app.computeLinks());
+console.log(JSON.stringify(links));
+console.error('ms', Date.now() - t);
+await browser.close();

@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer-core';
+const [,, out, k] = process.argv;
+const browser = await puppeteer.launch({ executablePath: '/usr/bin/google-chrome', headless: 'new', args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--enable-webgl'] });
+const page = await browser.newPage();
+await page.setViewport({ width: 1200, height: 898 });
+await page.goto('http://127.0.0.1:8731/maltsevo-3d/?shot=1&bare=1&ortho=1&k=' + k, { waitUntil: 'load', timeout: 120000 });
+await page.waitForFunction(() => window.__app && window.__app.state.ready, { timeout: 180000 });
+await page.evaluate(() => { window.__app.requestRender(); return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); });
+await new Promise((r) => setTimeout(r, 400));
+await page.screenshot({ path: out });
+await browser.close();

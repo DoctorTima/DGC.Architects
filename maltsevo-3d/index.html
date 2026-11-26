@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wabi-Sabi. Квартира в 3D | DGC Architects</title>
+<meta name="description" content="Проект интерьера в стиле ваби-саби: прихожая, коридор, гостиная и три варианта кухни в 3D. Можно снять потолок и встать внутрь.">
+<meta property="og:title" content="Wabi-Sabi. Квартира в 3D">
+<meta property="og:description" content="Прихожая, коридор, гостиная и три варианта кухни. DGC Architects.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="theme-color" content="#EFEEEA">
+<link rel="preload" href="fonts/dela-gothic-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="wabi.css">
+<link rel="stylesheet" href="app.css">
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+<a class="skip" href="#model">К 3D-модели</a>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo" href="#top"><span class="logo-dgc">DGC</span><span class="logo-rest">.Architects</span></a>
+    <span class="head-kicker mono">Журнал · проект интерьера</span>
+    <nav class="site-nav" aria-label="Разделы">
+      <a class="nav-link" href="#model">3D-модель</a>
+      <a class="nav-link" href="#stops-h">Точки обзора</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="kicker mono">Мальцево · гостиная, кухня и прихожая · ноябрь 2026</p>
+      <h1 class="hero-title">WABI-<br>SABI</h1>
+      <p class="hero-lead">Ваби-саби — красота несовершенного: известковая штукатурка с живой фактурой, дерево с открытой текстурой, латунь, которая темнеет со временем. Ничего глянцевого и ничего лишнего.</p>
+      <p class="hero-sub">Здесь вся квартира в 3D: прихожая, коридор, гостиная и кухня в трёх вариантах. Модель можно покрутить, снять и вернуть потолок, переключить вариант кухни, убрать стеллаж у ТВ и встать внутрь — в одну из семи точек обзора.</p>
+      <ul class="hero-index mono">
+        <li><a href="#model"><span>01</span>Квартира · 3D</a></li>
+        <li><a href="#model" data-go-kitchen="B"><span>02</span>Кухня · три варианта</a></li>
+        <li><a href="#stops-h"><span>03</span>Точки обзора</a></li>
+      </ul>
+    </div>
+    <figure class="hero-fig">
+      <img src="img/hero.webp" width="1100" height="1400" alt="3D-модель квартиры: срез стен, вид сверху" fetchpriority="high" decoding="async">
+      <figcaption class="mono">Квартира · 3D-модель, срез стен</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="room" id="model" aria-labelledby="model-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-num mono">01</span>
+      <h2 id="model-h">Квартира</h2>
+      <p class="sec-meta mono">прихожая · коридор · гостиная · кухня · потолок 3,2 м</p>
+    </header>
+    <p class="room-lead">Все комнаты одной моделью. Потолок по умолчанию снят, чтобы комнаты было видно сверху. «Срез стен» обрезает стены на высоте 1,35 м — получается объёмный план. Кухня — в трёх вариантах, стеллаж у ТВ можно убрать; всё переключается одной кнопкой, в том числе когда вы внутри.</p>
+
+    <div class="viewer" id="viewer" data-mode="orbit">
+      <div class="toolbar" role="group" aria-label="Управление моделью">
+        <div class="tool-group tg-view">
+          <button type="button" class="chip" data-view="iso" aria-pressed="true">3D</button>
+          <button type="button" class="chip" data-view="plan" aria-pressed="false">План</button>
+          <button type="button" class="chip" data-act="cut" aria-pressed="false">Срез стен</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" class="chip chip-strong" data-act="ceiling" aria-pressed="false"><span>Вернуть потолок</span></button>
+        </div>
+        <div class="tool-group kitchen-group" role="group" aria-labelledby="kitchen-l">
+          <span class="kitchen-l mono" id="kitchen-l">Кухня</span>
+          <button type="button" class="chip chip-k" data-kitchen="A" aria-pressed="true">Вариант 1</button>
+          <button type="button" class="chip chip-k" data-kitchen="B" aria-pressed="false">Вариант 2</button>
+          <button type="button" class="chip chip-k" data-kitchen="C" aria-pressed="false">Вариант 3</button>
+        </div>
+        <div class="tool-group">
+          <button type="button" class="chip chip-tgl" data-act="shelf" aria-pressed="true"><i class="tgl-box" aria-hidden="true"></i>Стеллаж у ТВ</button>
+        </div>
+        <div class="tool-group tg-full">
+          <button type="button" class="chip chip-full" data-act="full" aria-pressed="false"><span class="i-full" aria-hidden="true"></span><span class="full-t">Во весь экран</span></button>
+        </div>
+      </div>
+
+      <div class="stage">
+        <img class="stage-poster" src="img/poster.webp" width="1600" height="1000" alt="Модель квартиры без потолка" decoding="async">
+        <div class="stage-gl"></div>
+        <div class="pins" aria-label="Точки обзора на модели"></div>
+        <div class="loader mono" role="status"><span class="ld-n">0%</span><span class="ld-bar"><i></i></span><span class="ld-t">Загрузка модели · 5 МБ</span></div>
+        <p class="stage-hint mono hint-orbit">Крутите мышью или пальцем · кружки с номерами — точки обзора</p>
+
+        <div class="inside-ui">
+          <button type="button" class="chip in-back" data-act="exit"><span aria-hidden="true">←</span> Вся квартира</button>
+          <div class="hud" aria-live="polite">
+            <span class="hud-n mono">01 / 07</span>
+            <span class="hud-room">Прихожая</span>
+            <span class="hud-title">от входа</span>
+          </div>
+          <figure class="minimap" aria-hidden="true">
+            <img class="mm-img" src="img/plan-k1.webp" width="600" height="449" alt="">
+            <svg viewBox="0 0 100 74.84" preserveAspectRatio="none"><g class="mm-cone"><path d=""/><circle r="2.8"/></g></svg>
+          </figure>
+          <button type="button" class="in-nav in-prev" data-act="prev" aria-label="Предыдущая точка">‹</button>
+          <button type="button" class="in-nav in-next" data-act="next" aria-label="Следующая точка">›</button>
+          <p class="stage-hint mono hint-inside">Ведите, чтобы осмотреться · белые кружки на полу — соседние точки</p>
+        </div>
+      </div>
+      <p class="pin-info mono"><span class="kitchen-note">Кухня, вариант 1 — холодильник встроен справа у арки, у стены стойка</span></p>
+
+      <h3 class="tool-label stops-l" id="stops-h">Точки обзора · нажмите, чтобы встать внутрь</h3>
+      <div class="stops"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row mono">
+    <span><span class="logo-dgc">DGC</span>.Architects · 2026</span>
+    <span>Страница для заказчика. Не для публикации.</span>
+  </div>
+</footer>
+
+<script>
+window.MALTSEVO = {
+  model: 'models/living.glb',
+  modelPlain: 'models/living_plain.glb',
+  modelBytes: 6119144,
+  center: [13.1694, 8.3923],
+  half: [7.434, 5.51],
+  iso: [0.42, 1.15, 1.0],
+  planBounds: [-7.75, 7.75, -5.8, 5.8],
+  planAspect: 0.7484,
+  kitchenDefault: 'A',
+  kitchens: {
+    A: { name: 'Вариант 1', note: 'Кухня, вариант 1 — холодильник встроен справа у арки, у стены стойка' },
+    B: { name: 'Вариант 2', note: 'Кухня, вариант 2 — встроенный холодильник перенесён налево, у стены барная стойка с тремя стульями' },
+    C: { name: 'Вариант 3', note: 'Кухня, вариант 3 — как вариант 2, но двойной холодильник отдельно стоящий, не встроенный' }
+  },
+  stops: [
+    { id: 'hall-1', room: 'Прихожая', title: 'от входа', at: [19.2, 10.55], look: [17.4, 7.9] },
+    { id: 'hall-2', room: 'Прихожая', title: 'к коридору', at: [19.15, 8.2], look: [16.8, 9.4] },
+    { id: 'corridor', room: 'Коридор', title: 'к гостиной', at: [16.35, 9.27], look: [13.0, 9.27] },
+    { id: 'living-1', room: 'Гостиная', title: 'от лестницы', at: [12.2, 8.6], look: [8.2, 5.2] },
+    { id: 'living-2', room: 'Гостиная', title: 'от окна к кухне', at: [12.75, 4.1], look: [8.0, 8.3] },
+    { id: 'kitchen-1', room: 'Кухня', title: 'через арку', at: [7.6, 6.6], look: [7.3, 11.8] },
+    { id: 'kitchen-2', room: 'Кухня', title: 'от окна', at: [8.75, 11.95], look: [6.5, 8.6] }
+  ],
+  links: {'A': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}, 'B': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}, 'C': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}}
+};
+</script>
+<script src="page.js"></script>
+</body>
+</html>
