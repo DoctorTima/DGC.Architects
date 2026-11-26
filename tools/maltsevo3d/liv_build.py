@@ -206,35 +206,50 @@ meshes["BASE"] += window_dressing(18.625, 19.255, 11.05, 10.97, 2.985, 1.75, -1)
 # кухня: окно в северной стене (стекло y 12.84–12.90), внутренняя грань стены y 12.39
 meshes["BASE"] += window_dressing(6.925, 8.305, 12.77, 12.69, 3.125, 1.85, -1)
 
-# 1c. вариант 3: отдельно стоящий двойной холодильник (side-by-side 912 × 1780 × 716 мм) вместо колонны
-STEEL = solid_mat("Fridge_Steel", (196, 197, 195), 0.32, 0.75)
-STEEL_DK = solid_mat("Fridge_Steel_Dark", (60, 61, 62), 0.35, 0.7)
-BLACK = solid_mat("Fridge_Black", (22, 22, 22), 0.5)
+# 1c. вариант 3: отдельно стоящий холодильник Side-by-Side Haier HRF-541DM7RU (реальная модель:
+#     177,5 × 90,8 × 64,7 см, серебристый металлический фронт, встроенные вертикальные ручки, LED-дисплей на двери)
+STEEL = solid_mat("Haier_Silver_Metal", (190, 191, 189), 0.34, 0.75)
+STEEL_DK = solid_mat("Haier_Handle_Recess", (92, 93, 94), 0.4, 0.6)
+BLACK = solid_mat("Haier_Black_Glass", (18, 18, 19), 0.25)
+PLASTIC = solid_mat("Haier_Plinth_Black", (28, 28, 28), 0.7)
 def fridge_mesh(xb, yc):
-    W, Hh, D = 0.912, 1.78, 0.716
+    W, Hh, D = 0.908, 1.775, 0.647
     y0, y1 = yc - W / 2, yc + W / 2
-    xf = xb + D            # передняя плоскость дверей
+    xf = xb + D                  # плоскость фасада
+    door_t = 0.055
+    yg = y0 + W * 0.44           # стык дверей: морозильная камера слева уже
+    gap, zb, zt = 0.003, 0.075, Hh - 0.004
+    groove_w, groove_d, gz0, gz1 = 0.032, 0.016, 0.42, 1.62   # встроенные ручки — вертикальные углубления у стыка
     parts = []
     bm = bmesh.new()
-    add_box(bm, xb, xf - 0.05, y0, y1, 0.08, Hh)              # корпус
-    add_box(bm, xf - 0.05, xf, y0, yc - 0.004 - 0.09, 0.10, Hh - 0.005)     # дверь морозилки (≈40 %)
-    add_box(bm, xf - 0.05, xf, yc - 0.09 + 0.004, y1, 0.10, Hh - 0.005)     # дверь холодильника
+    add_box(bm, xb, xf - door_t, y0, y1, 0.06, Hh)                       # корпус
+    add_box(bm, xf - door_t, xf, y0, yg - gap - groove_w, zb, zt)        # левая дверь
+    add_box(bm, xf - door_t, xf, yg - gap - groove_w, yg - gap, zb, gz0)
+    add_box(bm, xf - door_t, xf, yg - gap - groove_w, yg - gap, gz1, zt)
+    add_box(bm, xf - door_t, xf - groove_d, yg - gap - groove_w, yg - gap, gz0, gz1)
+    add_box(bm, xf - door_t, xf, yg + gap + groove_w, y1, zb, zt)        # правая дверь
+    add_box(bm, xf - door_t, xf, yg + gap, yg + gap + groove_w, zb, gz0)
+    add_box(bm, xf - door_t, xf, yg + gap, yg + gap + groove_w, gz1, zt)
+    add_box(bm, xf - door_t, xf - groove_d, yg + gap, yg + gap + groove_w, gz0, gz1)
     me = bpy.data.meshes.new("fridge_body"); bm.to_mesh(me); bm.free(); me.materials.append(STEEL); parts.append(me)
-    bm = bmesh.new()
-    add_box(bm, xb + 0.02, xf - 0.06, y0 + 0.01, y1 - 0.01, 0.0, 0.08)      # цоколь
-    add_box(bm, xf - 0.052, xf - 0.05 + 0.001, y0 + 0.01, y1 - 0.01, 0.08, 0.10)   # щель
-    add_box(bm, xf - 0.004, xf + 0.003, y0 + 0.1, y0 + 0.27, 1.02, 1.30)    # диспенсер воды и льда
-    add_box(bm, xf - 0.004, xf + 0.002, y0 + 0.12, y0 + 0.25, 1.36, 1.42)   # дисплей
-    me = bpy.data.meshes.new("fridge_black"); bm.to_mesh(me); bm.free(); me.materials.append(BLACK); parts.append(me)
-    bm = bmesh.new()
-    for yh in (yc - 0.09 - 0.045, yc - 0.09 + 0.045):        # вертикальные ручки у щели
-        add_box(bm, xf + 0.035, xf + 0.055, yh - 0.011, yh + 0.011, 0.62, 1.52)
-        for zz in (0.66, 1.48):
-            add_box(bm, xf, xf + 0.035, yh - 0.007, yh + 0.007, zz - 0.012, zz + 0.012)
-    add_box(bm, xb, xf - 0.05, y0 + 0.02, y1 - 0.02, Hh, Hh + 0.012)        # крышка петель
-    me = bpy.data.meshes.new("fridge_handles"); bm.to_mesh(me); bm.free(); me.materials.append(STEEL_DK); parts.append(me)
+    bm = bmesh.new()   # тёмные стенки углублений ручек
+    for ya, yb_ in ((yg - gap - groove_w, yg - gap), (yg + gap, yg + gap + groove_w)):
+        add_box(bm, xf - groove_d - 0.002, xf - groove_d, ya + 0.002, yb_ - 0.002, gz0 + 0.002, gz1 - 0.002)
+    me = bpy.data.meshes.new("fridge_recess"); bm.to_mesh(me); bm.free(); me.materials.append(STEEL_DK); parts.append(me)
+    bm = bmesh.new()   # LED-дисплей с сенсорными кнопками на левой двери и логотип
+    add_box(bm, xf, xf + 0.0015, y0 + 0.11, y0 + 0.27, 1.40, 1.47)
+    add_box(bm, xf, xf + 0.001, y0 + 0.05, y0 + 0.14, Hh - 0.10, Hh - 0.085)
+    me = bpy.data.meshes.new("fridge_display"); bm.to_mesh(me); bm.free(); me.materials.append(BLACK); parts.append(me)
+    bm = bmesh.new()   # цоколь с решёткой, ножки, крышки петель
+    add_box(bm, xb + 0.03, xf - door_t - 0.005, y0 + 0.01, y1 - 0.01, 0.012, 0.072)
+    for yy in (y0 + 0.05, y1 - 0.05):
+        add_box(bm, xf - door_t - 0.06, xf - door_t - 0.02, yy - 0.02, yy + 0.02, 0.0, 0.012)
+    for yy in (y0 + 0.04, y1 - 0.08):
+        add_box(bm, xf - door_t - 0.002, xf - 0.01, yy, yy + 0.04, Hh, Hh + 0.012)
+    me = bpy.data.meshes.new("fridge_plinth"); bm.to_mesh(me); bm.free(); me.materials.append(PLASTIC); parts.append(me)
     return parts
-meshes["KC_FRIDGE"] += fridge_mesh(6.16, 8.962)
+meshes["KC_FRIDGE"] += fridge_mesh(6.14, 8.962)
+
 
 # 1d. рельефная стена за телевизором (ваби-саби): мягкие волны штукатурки, основа 10 мм + рельеф до 18 мм
 def relief_mesh(xw, y0, y1, z0, z1, step=0.02, base=0.010, amp=0.018):

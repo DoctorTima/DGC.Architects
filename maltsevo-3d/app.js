@@ -14,7 +14,7 @@ const COARSE = window.matchMedia && window.matchMedia('(pointer: coarse)').match
 const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const Q = new URLSearchParams(location.search);
 
-// координаты SketchUp (м) → сцена three.js (Y вверх, центр квартиры в нуле)
+// координаты SketchUp (м) → сцена three.js (Y вверх, центр дома в нуле)
 const toScene = (x, y, h) => new THREE.Vector3(x - CFG.center[0], h, -(y - CFG.center[1]));
 
 export function createApp(root) {
