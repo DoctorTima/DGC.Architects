@@ -87,7 +87,7 @@ export function createApp(root) {
   const poche = { value: 0 };
 
   const state = {
-    mode: 'orbit', view: 'iso', stop: null, kitchen: CFG.kitchenDefault || 'A', ceiling: false, cut: false, shelf: true,
+    mode: 'orbit', view: 'iso', stop: null, kitchen: CFG.kitchenDefault || 'A', ceiling: false, cut: false, shelf: true, relief: false,
     ceilBeforeInside: false, raf: 0, anim: null, ready: false, nodes: {}, pickables: [],
   };
 
@@ -341,6 +341,18 @@ export function createApp(root) {
     requestRender();
   }
 
+  // рельефная стена за ТВ: панель 10 мм + рельеф до 18 мм; телевизор отходит от стены на кронштейне
+  const RELIEF_SHIFT = 0.033;
+  function setRelief(on, quiet) {
+    state.relief = on;
+    const N = state.nodes;
+    if (N.RELIEF) N.RELIEF.visible = on;
+    if (N.TV) { if (N.TV.userData.x0 == null) N.TV.userData.x0 = N.TV.position.x; N.TV.position.x = N.TV.userData.x0 - (on ? RELIEF_SHIFT : 0); }
+    renderer.shadowMap.needsUpdate = true;
+    if (!quiet) writeHash();
+    syncUI();
+    requestRender();
+  }
   function setShelf(on, quiet) {
     state.shelf = on;
     if (state.nodes.SHELF) state.nodes.SHELF.visible = on;
@@ -359,6 +371,8 @@ export function createApp(root) {
     if (cu) { cu.setAttribute('aria-pressed', String(state.cut)); cu.disabled = state.mode === 'inside'; }
     const sh = $('[data-act="shelf"]');
     if (sh) sh.setAttribute('aria-pressed', String(state.shelf));
+    const rl = $('[data-act="relief"]');
+    if (rl) rl.setAttribute('aria-pressed', String(state.relief));
     const act = state.stop ? $('[data-stop="' + state.stop + '"]') : null;
     if (act && state.ready) {
       const strip = act.parentElement;
@@ -377,6 +391,7 @@ export function createApp(root) {
     else if (state.view === 'plan') parts.push('plan');
     if (state.cut && state.mode !== 'inside') parts.push('cut');
     if (!state.shelf) parts.push('noshelf');
+    if (state.relief) parts.push('relief');
     const h = '#' + parts.join('-');
     try { history.replaceState(null, '', h); } catch (e) {}
   }
@@ -386,6 +401,7 @@ export function createApp(root) {
     if (!h) return out;
     const m = /^k([123])/.exec(h); if (m) out.kitchen = { 1: 'A', 2: 'B', 3: 'C' }[m[1]];
     if (/noshelf/.test(h)) out.noshelf = true;
+    if (/relief/.test(h)) out.relief = true;
     for (const st of stops) if (h.indexOf(st.s.id) >= 0) out.stop = st.s.id;
     if (/plan/.test(h)) out.view = 'plan';
     if (/cut/.test(h)) out.cut = true;
@@ -424,6 +440,8 @@ export function createApp(root) {
   if (cb) cb.addEventListener('click', () => setCeiling(!state.ceiling));
   const shb = $('[data-act="shelf"]');
   if (shb) shb.addEventListener('click', () => setShelf(!state.shelf));
+  const rlb = $('[data-act="relief"]');
+  if (rlb) rlb.addEventListener('click', () => setRelief(!state.relief));
   const cu = $('[data-act="cut"]');
   if (cu) cu.addEventListener('click', () => { state.cut = !state.cut; if (state.cut && state.ceiling) setCeiling(false, true); applyCut(); syncUI(); writeHash(); });
   $$('[data-act="exit"]').forEach((b) => b.addEventListener('click', () => goOrbit('iso')));
@@ -506,6 +524,7 @@ export function createApp(root) {
       if (h.cut) state.cut = true;
       setKitchen({ 1: 'A', 2: 'B', 3: 'C' }[Q.get('k')] || h.kitchen || state.kitchen);
       setShelf(!(h.noshelf || Q.get('shelf') === '0'), true);
+      setRelief(!!(h.relief || Q.get('relief') === '1'), true);
       setOrbitControls();
       state.ready = true;
       root.classList.add('is-live');
@@ -537,7 +556,7 @@ export function createApp(root) {
         const out = {};
         for (const k of ['A', 'B', 'C']) {
           setKitchen(k);
-          const targets = ['BASE', 'SHELF', 'KITCHEN_A', 'KITCHEN_B', 'KB_COLUMN', 'KC_FRIDGE'].map((n) => state.nodes[n]).filter((n) => n && n.visible);
+          const targets = ['BASE', 'TV', 'SHELF', 'KITCHEN_A', 'KITCHEN_B', 'KB_COLUMN', 'KC_FRIDGE'].map((n) => state.nodes[n]).filter((n) => n && n.visible);
           out[k] = {};
           for (const a of stops) {
             out[k][a.s.id] = [];
@@ -554,8 +573,8 @@ export function createApp(root) {
         setKitchen(CFG.kitchenDefault || 'A');
         return out;
       };
-      const api = { setKitchen, setShelf, goStop, goOrbit };
-      window.__app = { computeLinks, setShelf, state, goStop, goOrbit, setKitchen, setCeiling, renderer, camera, scene, controls, stops, applyCut, requestRender, THREE };
+      const api = { setKitchen, setShelf, setRelief, goStop, goOrbit };
+      window.__app = { computeLinks, setShelf, setRelief, state, goStop, goOrbit, setKitchen, setCeiling, renderer, camera, scene, controls, stops, applyCut, requestRender, THREE };
       resolve(api);
     }, (e) => {
       if (e && e.total) progress(e.loaded / e.total);

@@ -69,7 +69,7 @@ for (const m of root.listMaterials()) {
 }
 for (const mesh of root.listMeshes()) for (const p of mesh.listPrimitives()) {
   const mt = p.getMaterial();
-  for (const sem of p.listSemantics()) if (/^TEXCOORD_[1-9]/.test(sem) || /^COLOR_/.test(sem) || (sem === 'TEXCOORD_0' && !(mt && mt.getBaseColorTexture()))) p.setAttribute(sem, null);
+  for (const sem of p.listSemantics()) if (/^TEXCOORD_[1-9]/.test(sem) || (/^COLOR_/.test(sem) && !(mt && /^Relief/.test(mt.getName()))) || (sem === 'TEXCOORD_0' && !(mt && mt.getBaseColorTexture()))) p.setAttribute(sem, null);
   if (mt && mt.getBaseColorTexture() && !p.getAttribute('TEXCOORD_0')) console.log('NO UV', mesh.getName(), mt.getName());
 }
 await doc.transform(dedup(), weld({ tolerance: 0.0001 }), prune({ keepAttributes: false }), meshopt({ encoder: MeshoptEncoder, level: 'medium' }));

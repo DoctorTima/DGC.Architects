@@ -36,7 +36,7 @@
       <p class="kicker mono">Мальцево · гостиная, кухня и прихожая · ноябрь 2026</p>
       <h1 class="hero-title">WABI-<br>SABI</h1>
       <p class="hero-lead">Ваби-саби — красота несовершенного: известковая штукатурка с живой фактурой, дерево с открытой текстурой, латунь, которая темнеет со временем. Ничего глянцевого и ничего лишнего.</p>
-      <p class="hero-sub">Здесь вся квартира в 3D: прихожая, коридор, гостиная и кухня в трёх вариантах. Модель можно покрутить, снять и вернуть потолок, переключить вариант кухни, убрать стеллаж у ТВ и встать внутрь — в одну из семи точек обзора.</p>
+      <p class="hero-sub">Здесь вся квартира в 3D: прихожая, коридор, гостиная и кухня в трёх вариантах. Модель можно покрутить, снять и вернуть потолок, переключить вариант кухни, убрать стеллаж у ТВ, примерить рельефную стену и встать внутрь — в одну из восьми точек обзора.</p>
       <ul class="hero-index mono">
         <li><a href="#model"><span>01</span>Квартира · 3D</a></li>
         <li><a href="#model" data-go-kitchen="B"><span>02</span>Кухня · три варианта</a></li>
@@ -57,7 +57,7 @@
       <h2 id="model-h">Квартира</h2>
       <p class="sec-meta mono">прихожая · коридор · гостиная · кухня · потолок 3,2 м</p>
     </header>
-    <p class="room-lead">Все комнаты одной моделью. Потолок по умолчанию снят, чтобы комнаты было видно сверху. «Срез стен» обрезает стены на высоте 1,35 м — получается объёмный план. Кухня — в трёх вариантах, стеллаж у ТВ можно убрать; всё переключается одной кнопкой, в том числе когда вы внутри.</p>
+    <p class="room-lead">Все комнаты одной моделью. Потолок по умолчанию снят, чтобы комнаты было видно сверху. «Срез стен» обрезает стены на высоте 1,35 м — получается объёмный план. Кухня — в трёх вариантах; стеллаж у ТВ можно убрать, а стену за телевизором — сделать рельефной. Всё переключается одной кнопкой, в том числе когда вы внутри.</p>
 
     <div class="viewer" id="viewer" data-mode="orbit">
       <div class="toolbar" role="group" aria-label="Управление моделью">
@@ -77,6 +77,7 @@
         </div>
         <div class="tool-group">
           <button type="button" class="chip chip-tgl" data-act="shelf" aria-pressed="true"><i class="tgl-box" aria-hidden="true"></i>Стеллаж у ТВ</button>
+          <button type="button" class="chip chip-tgl chip-accent" data-act="relief" aria-pressed="false"><i class="tgl-box" aria-hidden="true"></i>Рельефная стена</button>
         </div>
         <div class="tool-group tg-full">
           <button type="button" class="chip chip-full" data-act="full" aria-pressed="false"><span class="i-full" aria-hidden="true"></span><span class="full-t">Во весь экран</span></button>
@@ -93,7 +94,7 @@
         <div class="inside-ui">
           <button type="button" class="chip in-back" data-act="exit"><span aria-hidden="true">←</span> Вся квартира</button>
           <div class="hud" aria-live="polite">
-            <span class="hud-n mono">01 / 07</span>
+            <span class="hud-n mono">01 / 08</span>
             <span class="hud-room">Прихожая</span>
             <span class="hud-title">от входа</span>
           </div>
@@ -126,7 +127,7 @@
 window.MALTSEVO = {
   model: 'models/living.glb',
   modelPlain: 'models/living_plain.glb',
-  modelBytes: 6119144,
+  modelBytes: 6488480,
   center: [13.1694, 8.3923],
   half: [7.434, 5.51],
   iso: [0.42, 1.15, 1.0],
@@ -144,10 +145,11 @@ window.MALTSEVO = {
     { id: 'corridor', room: 'Коридор', title: 'к гостиной', at: [16.35, 9.27], look: [13.0, 9.27] },
     { id: 'living-1', room: 'Гостиная', title: 'от лестницы', at: [12.2, 8.6], look: [8.2, 5.2] },
     { id: 'living-2', room: 'Гостиная', title: 'от окна к кухне', at: [12.75, 4.1], look: [8.0, 8.3] },
+    { id: 'living-3', room: 'Гостиная', title: 'на ТВ-стену', at: [8.7, 7.5], look: [13.3, 5.6] },
     { id: 'kitchen-1', room: 'Кухня', title: 'через арку', at: [7.6, 6.6], look: [7.3, 11.8] },
     { id: 'kitchen-2', room: 'Кухня', title: 'от окна', at: [8.75, 11.95], look: [6.5, 8.6] }
   ],
-  links: {'A': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}, 'B': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}, 'C': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}}
+  links: {'A': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'living-3', 'kitchen-1'], 'living-3': ['living-2', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'living-3', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}, 'B': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'living-3', 'kitchen-1'], 'living-3': ['living-2', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'living-3', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}, 'C': {'hall-1': ['hall-2', 'corridor'], 'hall-2': ['hall-1', 'corridor'], 'corridor': ['hall-1', 'hall-2', 'living-1'], 'living-1': ['corridor', 'living-2', 'kitchen-1'], 'living-2': ['living-1', 'living-3', 'kitchen-1'], 'living-3': ['living-2', 'kitchen-1'], 'kitchen-1': ['living-1', 'living-2', 'living-3', 'kitchen-2'], 'kitchen-2': ['kitchen-1']}}
 };
 </script>
 <script src="page.js"></script>

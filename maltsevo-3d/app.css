@@ -20,6 +20,9 @@
 .tgl-box { position: relative; width: 12px; height: 12px; border: 1px solid currentColor; }
 .chip-tgl[aria-pressed="true"] .tgl-box::after { content: ""; position: absolute; left: 3px; top: 0; width: 4px; height: 8px; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
 .chip-tgl[aria-pressed="false"] { color: var(--ink-3); border-color: var(--rule); }
+.chip-accent { border-color: var(--accent); color: var(--accent); }
+.chip-accent[aria-pressed="false"] { border-color: var(--accent); color: var(--accent); }
+.chip-accent[aria-pressed="true"] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
 
 /* ---------- сцена ---------- */
 .stage { aspect-ratio: 16 / 9.4; max-height: 84vh; }

@@ -30,6 +30,8 @@ for (const job of jobs) {
       else if (a === 'k3') A.setKitchen('C');
       else if (a === 'shelf0') A.setShelf(false);
       else if (a === 'shelf1') A.setShelf(true);
+      else if (a === 'relief1') A.setRelief(true);
+      else if (a === 'relief0') A.setRelief(false);
       else if (a.startsWith('cam=')) { const v = a.slice(4).split(',').map(Number); A.camera.position.set(v[0], v[1], v[2]); A.controls.target.set(v[3], v[4], v[5]); A.controls.update(); }
       else if (a.startsWith('yaw=')) { const d = +a.slice(4) * Math.PI / 180; const c = A.camera.position, t = A.controls.target; const dx = t.x - c.x, dz = t.z - c.z; t.x = c.x + dx * Math.cos(d) - dz * Math.sin(d); t.z = c.z + dx * Math.sin(d) + dz * Math.cos(d); A.controls.update(); }
     }

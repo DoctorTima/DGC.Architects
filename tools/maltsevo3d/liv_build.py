@@ -48,6 +48,7 @@ def group_of(r):
     if r.name in A: return "KITCHEN_A"
     if r.name == "Группа#248": return "KB_COLUMN"   # встроенная колонна с холодильниками (вариант 2)
     if r.name in B: return "KITCHEN_B"
+    if r.name == "Группа#215": return "TV"           # телевизор: сдвигается от стены, когда включён рельеф
     if CEIL_ROOTS.match(r.name): return "CEIL"
     return "BASE"
 
@@ -118,7 +119,7 @@ def wbb(objs):
     return (Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts))),
             Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts))))
 
-meshes = {"BASE": [], "CEIL": [], "KITCHEN_A": [], "KITCHEN_B": [], "KB_COLUMN": [], "KC_FRIDGE": [], "SHELF": []}
+meshes = {"BASE": [], "CEIL": [], "KITCHEN_A": [], "KITCHEN_B": [], "KB_COLUMN": [], "KC_FRIDGE": [], "SHELF": [], "TV": [], "RELIEF": []}
 stats = {k: [0, 0] for k in meshes}
 log = []
 for r in [o for o in SCN.objects if o.parent is None]:
@@ -235,6 +236,57 @@ def fridge_mesh(xb, yc):
     return parts
 meshes["KC_FRIDGE"] += fridge_mesh(6.16, 8.962)
 
+# 1d. рельефная стена за телевизором (ваби-саби): мягкие волны штукатурки, основа 10 мм + рельеф до 18 мм
+def relief_mesh(xw, y0, y1, z0, z1, step=0.02, base=0.010, amp=0.018):
+    rng = np.random.default_rng(27)
+    lat = rng.random((64, 64))
+    def vnoise(u, v):
+        iu, iv = np.floor(u).astype(int), np.floor(v).astype(int)
+        fu, fv = u - iu, v - iv
+        fu, fv = fu * fu * (3 - 2 * fu), fv * fv * (3 - 2 * fv)
+        g = lambda a, b: lat[a % 64, b % 64]
+        return (g(iu, iv) * (1 - fu) + g(iu + 1, iv) * fu) * (1 - fv) + (g(iu, iv + 1) * (1 - fu) + g(iu + 1, iv + 1) * fu) * fv
+    def fbm(u, v, oct=4):
+        acc, a, f, n = 0, 0.5, 1.0, 0
+        for _ in range(oct):
+            acc += a * vnoise(u * f, v * f); n += a; a *= 0.5; f *= 2.03
+        return acc / n
+    ys = np.arange(y0, y1 + 1e-6, step); zs = np.arange(z0, z1 + 1e-6, step)
+    S, T = np.meshgrid(ys - y0, zs - z0)            # строки — по высоте
+    warp = 0.16 * (fbm(S * 0.7, T * 0.7) - 0.5) + 0.06 * (fbm(S * 1.9 + 5, T * 1.9 + 3) - 0.5)
+    phase = (T + 0.22 * np.sin(S * 0.9 + 0.6) + 0.08 * np.sin(S * 2.3 + 1.9) + warp) / 0.17
+    ridge = (0.5 + 0.5 * np.cos(2 * np.pi * phase)) ** 1.25
+    amod = 0.65 + 0.35 * fbm(S * 0.6 + 11, T * 0.6 + 7)
+    h = np.clip(amp * ridge * amod + 0.0015 * fbm(S * 9, T * 9), 0, amp)
+    nz, ny = h.shape
+    bm = bmesh.new()
+    col = bm.loops.layers.color.new("Col")
+    front = [[bm.verts.new((xw - base - h[i, j], ys[j], zs[i])) for j in range(ny)] for i in range(nz)]
+    shade = 0.86 + 0.14 * (h / amp)                 # впадины чуть темнее
+    for i in range(nz - 1):
+        for j in range(ny - 1):
+            f = bm.faces.new((front[i][j], front[i][j + 1], front[i + 1][j + 1], front[i + 1][j]))
+            f.smooth = True
+            for lp in f.loops:
+                ii = i + (1 if lp.vert in (front[i + 1][j], front[i + 1][j + 1]) else 0)
+                jj = j + (1 if lp.vert in (front[i][j + 1], front[i + 1][j + 1]) else 0)
+                c = shade[ii, jj]; lp[col] = (c, c, c, 1.0)
+    def edge(vs):
+        back = [bm.verts.new((xw, v.co.y, v.co.z)) for v in vs]
+        for k in range(len(vs) - 1):
+            f = bm.faces.new((vs[k], back[k], back[k + 1], vs[k + 1]))
+            for lp in f.loops: lp[col] = (0.86, 0.86, 0.86, 1.0)
+    edge([front[0][j] for j in range(ny)]); edge([front[nz - 1][j] for j in range(ny)][::-1])
+    edge([front[i][0] for i in range(nz)][::-1]); edge([front[i][ny - 1] for i in range(nz)])
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    me = bpy.data.meshes.new("relief"); bm.to_mesh(me); bm.free()
+    if me.color_attributes:
+        me.color_attributes.active_color = me.color_attributes[0]; me.color_attributes.render_color_index = 0
+    me.materials.append(solid_mat("Relief_Plaster", (214, 199, 178), 0.95))
+    return me, float(base + amp)
+_rel, RELIEF_DEPTH = relief_mesh(13.365, 3.637, 7.632, 0.44, 3.19)
+meshes["RELIEF"].append(_rel)
+
 # 2. центр квартиры → начало координат (по общей части)
 allv = np.concatenate([np.array([v.co[:] for v in me.vertices]) for me in meshes["BASE"] if len(me.vertices)])
 lo, hi = allv.min(0), allv.max(0)
@@ -254,8 +306,9 @@ for g, lst in meshes.items():
     objs = []
     for i, me in enumerate(lst):
         o = bpy.data.objects.new(f"{g}_{i}", me); coll.objects.link(o); objs.append(o)
-    with bpy.context.temp_override(active_object=objs[0], selected_editable_objects=objs, selected_objects=objs, object=objs[0]):
-        bpy.ops.object.join()
+    if len(objs) > 1:
+        with bpy.context.temp_override(active_object=objs[0], selected_editable_objects=objs, selected_objects=objs, object=objs[0]):
+            bpy.ops.object.join()
     o = objs[0]; o.name = g; o.data.name = g
     out_objs.append(o)
 
@@ -284,7 +337,10 @@ for m in bpy.data.materials:
         pr.inputs["Emission Color"].default_value = (1.0, 0.93, 0.82, 1)
         pr.inputs["Emission Strength"].default_value = 1.0
 
-bpy.ops.export_scene.gltf(filepath=out_glb, export_format="GLB", use_selection=False, export_apply=True, export_yup=True,
+for o in SCN.objects:
+    if o.type == 'MESH' and o.name != 'RELIEF':
+        for a in list(o.data.color_attributes): o.data.color_attributes.remove(a)
+bpy.ops.export_scene.gltf(filepath=out_glb, export_format="GLB", use_selection=False, export_apply=True, export_yup=True, export_vertex_color="ACTIVE",
                           export_texcoords=True, export_normals=True, export_materials="EXPORT", export_cameras=False,
                           export_lights=False, export_image_format="AUTO")
 meta = {"center_skp_m": [cx, cy], "bbox": [[float(lo[0] - cx), float(lo[1] - cy), float(lo[2])], [float(hi[0] - cx), float(hi[1] - cy), float(hi[2])]],
